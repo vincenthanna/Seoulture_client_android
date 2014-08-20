@@ -12,7 +12,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
         super(fm);
     }
 
-    private String[] tabs = { "Top Rated Contents", "Games List", "Hot Movies & TV Program" };
+    private String[] tabs = { "Dashboard", "게임 목록", "Hot Movies & TV Program" };
 
     @Override
     public Fragment getItem(int index) {
@@ -20,7 +20,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
         switch (index) {
             case 0:
                 // Top Rated fragment activity
-                return new TopRatedFragment();
+                return new DashboardFragment();
             case 1:
                 // Games fragment activity
                 return new GamesFragment();

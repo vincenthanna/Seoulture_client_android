@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    tools:context=".DashboardItemLayout">
+
+    <TextView
+        android:id="@+id/textView_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="동대문 쥐불놀이(예시)"
+        android:textSize="32sp" />
+    <ImageView
+        android:id="@+id/imageView_pic"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:src="@drawable/ic_launcher"
+        android:layout_below="@id/textView_title"
+        />
+    <TextView
+        android:id="@+id/textView_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/imageView_pic"
+        android:layout_below="@id/textView_title"
+        android:text="행사에 대한 설명이 여기 들어가야 한다. 잘 써 놓길 바란다. 설렁설렁 하면 횽이 가만두지 않으마!"
+        android:textSize="12sp" />
+
+
+</RelativeLayout>
