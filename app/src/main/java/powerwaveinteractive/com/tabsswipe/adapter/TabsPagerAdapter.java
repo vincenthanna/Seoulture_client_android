@@ -12,7 +12,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
         super(fm);
     }
 
-    private String[] tabs = { "Dashboard", "게임 목록", "Hot Movies & TV Program" };
+    private String[] tabs = { "시작화면", "검색", "설정" };
 
     @Override
     public Fragment getItem(int index) {
@@ -23,7 +23,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
                 return new DashboardFragment();
             case 1:
                 // Games fragment activity
-                return new GamesFragment();
+                return new SearchFragment();
             case 2:
                 // Movies fragment activity
                 return new MoviesFragment();

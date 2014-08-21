@@ -1,6 +1,6 @@
 package powerwaveinteractive.com.seoulture;
 
-import android.content.*;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,54 +11,44 @@ import android.widget.*;
 import java.util.ArrayList;
 
 /**
- * Created by vincenthanna on 8/20/14.
+ * Created by vincenthanna on 8/21/14.
  */
-public class DashboardFragment extends Fragment {
+public class SearchFragment extends Fragment {
 
     private ListView lv;
     private ListAdapter lvAdapter;
-    ArrayList<DashboardItem> dashboardItemList;
+    ArrayList<CultureItem> searchItemList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        dashboardItemList = new ArrayList<DashboardItem>();
-        DashboardItem item;
+        searchItemList = new ArrayList<CultureItem>();
+        CultureItem item;
 
         for (int i = 0; i < 8; i++) {
-            item = new DashboardItem("Hello", "설명이 여기에..");
-            dashboardItemList.add(item);
+            item = new CultureItem("Hello", "설명이 여기에..");
+            searchItemList.add(item);
         }
 
-        View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_search, container, false);
 
-        lv = (ListView)(rootView.findViewById(R.id.dashboard_lv));
+        lv = (ListView)(rootView.findViewById(R.id.search_lv));
 
-        lvAdapter = new DashboardListAdapter(this.getActivity(),
+        lvAdapter = new SearchListAdapter(this.getActivity(),
                 R.layout.dashboard_listitem_layout,
-                dashboardItemList);
+                searchItemList);
         lv.setAdapter(lvAdapter);
         return rootView;
     }
 }
 
-// DashboardListAdapter impl.
-
-class DashboardItem extends CultureItem{
-
-    DashboardItem(String title, String desc) {
-        super(title, desc);
-    }
-}
-
-
 // 어댑터 클래스
-class DashboardListAdapter extends BaseAdapter {
+class SearchListAdapter extends BaseAdapter {
     LayoutInflater inflater;
-    ArrayList<DashboardItem> src;
+    ArrayList<CultureItem> src;
 
-    public DashboardListAdapter(Context context, int layout, ArrayList<DashboardItem> src) {
+    public SearchListAdapter(Context context, int layout, ArrayList<CultureItem> src) {
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.src = src;
     }
