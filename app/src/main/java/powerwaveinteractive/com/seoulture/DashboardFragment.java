@@ -3,6 +3,7 @@ package powerwaveinteractive.com.seoulture;
 import android.content.*;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ public class DashboardFragment extends Fragment {
     private ListView lv;
     private ListAdapter lvAdapter;
     ArrayList<DashboardItem> dashboardItemList;
+    FragmentActivity activity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,7 +29,7 @@ public class DashboardFragment extends Fragment {
         DashboardItem item;
 
         for (int i = 0; i < 8; i++) {
-            item = new DashboardItem("Hello", "설명이 여기에..");
+            item = new DashboardItem("DashboardFragment", "이것은 dashboard에서 온 것이다.");
             dashboardItemList.add(item);
         }
 
@@ -39,8 +41,24 @@ public class DashboardFragment extends Fragment {
                 R.layout.dashboard_listitem_layout,
                 dashboardItemList);
         lv.setAdapter(lvAdapter);
+        activity = this.getActivity();
+        lv.setOnItemClickListener(mItemClickListener);
         return rootView;
     }
+
+    private AdapterView.OnItemClickListener mItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position,
+                                long l_position) {
+            Intent intent = new Intent(activity, DetailActivity.class);
+
+            CultureItem item = dashboardItemList.get(position);
+            intent.putExtra(DetailActivity.CULTURE_ITEM, item);
+
+            startActivity(intent);
+
+        }
+    };
 }
 
 // DashboardListAdapter impl.
