@@ -1,19 +1,55 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="#a0a000"
-    tools:context="powerwaveinteractive.com.seoulture.DetailActivity">
+    android:fillViewport="true"
+    android:scrollbars="none">
 
-    <TextView
-        android:text="DETAIL GOES HERE"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
-</RelativeLayout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#a0a000"
+        tools:context="powerwaveinteractive.com.seoulture.DetailActivity">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#40c0c0">
+
+            <ImageView
+                android:id="@+id/detail_mainpic"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+
+
+                android:src="@drawable/si2"
+                android:background="#308080"
+                android:layout_alignParentStart="false"
+                android:baselineAlignBottom="false"
+                android:clickable="false"
+                android:scaleType="center" />
+
+            <TextView
+                android:id="@+id/detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_mainpic"
+                android:text="동대문 쥐불놀이(예시)"
+                android:textSize="32sp" />
+
+            <TextView
+                android:id="@+id/detail_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_title"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="행사에 대한 설명이 여기 들어가야 한다. 잘 써 놓길 바란다. 설렁설렁 하면 횽이 가만두지 않으마!"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

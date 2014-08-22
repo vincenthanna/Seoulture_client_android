@@ -12,7 +12,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
         super(fm);
     }
 
-    private String[] tabs = { "시작화면", "검색", "설정" };
+    private String[] tabs = { "Dashboard", "검색", "설정" };
 
     @Override
     public Fragment getItem(int index) {
