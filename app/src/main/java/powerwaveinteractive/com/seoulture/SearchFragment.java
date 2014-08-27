@@ -30,7 +30,7 @@ public class SearchFragment extends Fragment {
         CultureItem item;
 
         for (int i = 0; i < 8; i++) {
-            item = new CultureItem("fromSearchFragment", "이것은 SearchFragment에서 넘어온것이다.");
+            item = new CultureItem(i, "fromSearchFragment", "이것은 SearchFragment에서 넘어온것이다.");
             searchItemList.add(item);
         }
 

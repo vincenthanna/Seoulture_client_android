@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class DetailActivity extends Activity {
 
     static String CULTURE_ITEM = "CULTUREITEM";
+    static String CULTURE_ITEM_ID = "CULTUREITEMID";
     private CultureItem _cultureItem;
 
     ReviewListAdapter mAdapter;
@@ -22,16 +23,24 @@ public class DetailActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        /*
         _cultureItem = (CultureItem) getIntent().getSerializableExtra(
                 CULTURE_ITEM);
 
+
         System.out.println("Received CultureItem:" + _cultureItem.title + ", " + _cultureItem.description);
+        */
+
+        int cultureItemId = getIntent().getIntExtra(CULTURE_ITEM_ID, 0);
+        _cultureItem = MainActivity.testDataStorage.getCultureItemById(cultureItemId);
+        System.out.println("Received CultureItem:" + _cultureItem.title + ", " + _cultureItem.description);
+
 
         _reviewArray = new ArrayList<ReviewItem>();
         ReviewItem item;
 
         for (int i = 0; i < 3; i++) {
-            item = new ReviewItem("리뷰 씁니다.", "이것은 " + i + " 번째 리뷰이다.", 3.0);
+            item = new ReviewItem(i, i, "리뷰 씁니다.", "이것은 " + i + " 번째 리뷰이다.", 3.0);
             _reviewArray.add(item);
         }
 

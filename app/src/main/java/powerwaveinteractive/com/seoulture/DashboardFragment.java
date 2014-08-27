@@ -1,6 +1,7 @@
 package powerwaveinteractive.com.seoulture;
 
 import android.content.*;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -27,9 +28,11 @@ public class DashboardFragment extends Fragment {
 
         dashboardItemList = new ArrayList<DashboardItem>();
         DashboardItem item;
+        CultureItem cultureItem;
 
-        for (int i = 0; i < 8; i++) {
-            item = new DashboardItem("DashboardFragment", "이것은 dashboard에서 온 것이다.");
+        ArrayList<CultureItem> cultureArray = MainActivity.testDataStorage._cultures;
+        for (int i = 0; i < cultureArray.size(); i++) {
+            item = new DashboardItem(cultureArray.get(i));
             dashboardItemList.add(item);
         }
 
@@ -52,8 +55,11 @@ public class DashboardFragment extends Fragment {
                                 long l_position) {
             Intent intent = new Intent(activity, DetailActivity.class);
 
-            CultureItem item = dashboardItemList.get(position);
-            intent.putExtra(DetailActivity.CULTURE_ITEM, item);
+            //CultureItem item = dashboardItemList.get(position).getCultureItem();
+            //intent.putExtra(DetailActivity.CULTURE_ITEM, item);
+
+            int cultureItemId = dashboardItemList.get(position).getCultureItem().id;
+            intent.putExtra(DetailActivity.CULTURE_ITEM_ID, cultureItemId);
 
             startActivity(intent);
 
@@ -63,10 +69,13 @@ public class DashboardFragment extends Fragment {
 
 // DashboardListAdapter impl.
 
-class DashboardItem extends CultureItem{
-
-    DashboardItem(String title, String desc) {
-        super(title, desc);
+class DashboardItem {
+    CultureItem _cultureItem;
+    DashboardItem(CultureItem item) {
+        _cultureItem = item;
+    }
+    public CultureItem getCultureItem() {
+        return _cultureItem;
     }
 }
 
@@ -97,9 +106,14 @@ class DashboardListAdapter extends BaseAdapter {
 
     // 각 항목의 view 생성
     public View getView(int position, View convertView, ViewGroup parent) {
+        DashboardItemLayout layout;
         if (convertView == null) {
             convertView = new DashboardItemLayout(parent.getContext());
         }
+        layout = (DashboardItemLayout)convertView;
+        ArrayList<Bitmap> arrayBitmap = MainActivity.testDataStorage._cultures.get(position).bitmaps;
+        //layout.setTitleBitmap(arrayBitmap.get(0));
+        layout.setCultureItem(MainActivity.testDataStorage._cultures.get(position));
         return convertView;
     }
 

@@ -3,6 +3,8 @@ package powerwaveinteractive.com.seoulture;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -12,8 +14,9 @@ import android.view.MenuItem;
 import SlidingTabs.SlidingTabLayout;
 import powerwaveinteractive.com.tabsswipe.adapter.TabsPagerAdapter;
 
-
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener{
+
+    public static TestDataStorage testDataStorage;
 
     private SlidingTabLayout mSlidingTabLayout;
     private ViewPager viewPager;
@@ -21,6 +24,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        testDataStorage = new TestDataStorage(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -32,6 +38,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         // SlidingTabLayout 설정
         mSlidingTabLayout = (SlidingTabLayout)findViewById(R.id.sliding_tabs);
         mSlidingTabLayout.setViewPager(viewPager);
+
+
     }
 
 
