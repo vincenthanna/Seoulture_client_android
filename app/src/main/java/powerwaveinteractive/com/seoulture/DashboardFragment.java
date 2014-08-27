@@ -54,15 +54,9 @@ public class DashboardFragment extends Fragment {
         public void onItemClick(AdapterView<?> parent, View view, int position,
                                 long l_position) {
             Intent intent = new Intent(activity, DetailActivity.class);
-
-            //CultureItem item = dashboardItemList.get(position).getCultureItem();
-            //intent.putExtra(DetailActivity.CULTURE_ITEM, item);
-
             int cultureItemId = dashboardItemList.get(position).getCultureItem().id;
             intent.putExtra(DetailActivity.CULTURE_ITEM_ID, cultureItemId);
-
             startActivity(intent);
-
         }
     };
 }
@@ -111,8 +105,6 @@ class DashboardListAdapter extends BaseAdapter {
             convertView = new DashboardItemLayout(parent.getContext());
         }
         layout = (DashboardItemLayout)convertView;
-        ArrayList<Bitmap> arrayBitmap = MainActivity.testDataStorage._cultures.get(position).bitmaps;
-        //layout.setTitleBitmap(arrayBitmap.get(0));
         layout.setCultureItem(MainActivity.testDataStorage._cultures.get(position));
         return convertView;
     }

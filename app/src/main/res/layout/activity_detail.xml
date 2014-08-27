@@ -26,65 +26,21 @@
                 android:background="#308080"
                 android:baselineAlignBottom="false"
                 android:clickable="false"
-                android:scaleType="center"
+                android:adjustViewBounds="true"
                 android:src="@drawable/si1" />
 
-            <RelativeLayout
-                android:id="@+id/title_area"
+            <include
+                android:id="@+id/detail_title"
+                layout="@layout/detail_title_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/detail_mainpic">
-
-                <ImageView
-                    android:id="@+id/small_pic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/smallimg" />
-
-                <TextView
-                    android:id="@+id/detail_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/small_pic"
-                    android:text="모델 사진 촬영회"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/detail_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/detail_title"
-                    android:layout_toRightOf="@id/small_pic"
-                    android:text="2014년 9월 15일"
-                    android:textSize="16sp" />
-            </RelativeLayout>
-
-
-            <TextView
-                android:id="@+id/detail_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/title_area"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:maxLines="100"
-                android:text="(부산=연합뉴스) 민영규 기자 = 25일 오후 부산지역에 시간당 최고 100㎜에 달하는 물폭탄이 쏟아지는 바람에 동해남부선 일부 구간의 열차 운행이 중단됐다.
-
-코레일은 이날 오후 2시 30분께부터 부산시 기장군 기장역에서 울산시 남구 태화강역까지 열차 운행을 중단했다고 밝혔다.
-
-기장군 기장역과 월례역 사이 철로가 침수되는 바람에 자갈과 토사가 일부 유실됐기 때문이다.
-
-코레일은 해당 구간의 승객을 버스로 수송하고 있다고 설명했다.
-
-학습지 교사를 '노동조합 및 노동관계조정법'(노조법)상의 근로자로 인정했던 법원의 첫 판결이 항소심에서 뒤집혔다. 이와 관련 법조계 일각에서는 노동 3권의 사각지대에 있는 특수고용형태 종사자들이 법적으로도 노동자임을 점차 인정해 가고 있는 추세에 역행하는 판결이라는 지적도 나오고 있다.
-
-서울고법 행정6부(부장 윤성근)는 유모 씨 등 재능교육 학습지 교사 9명이 \'노조 활동을 이유로 위탁계약을 해지한 것은 부당해고이자 부당노동행위\'라며 중앙노동위원회를 상대로 낸 소송에서 원고 일부 승소로 판결했던 원심을 깨고 원고 패소 판결했다고 25일 밝혔다. 앞서 1심은 학습지 교사는 근로기준법상 근로자로 볼 수 없다고만 판단했지만 항소심은 이에 더해 노조법상의 근로자로도 인정하지 않았다."
-                android:textSize="16sp" />
+                android:layout_below="@id/detail_mainpic" />
 
             <RelativeLayout
                 android:id="@+id/rating"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/detail_desc"
+                android:layout_below="@id/detail_title"
                 android:layout_marginTop="@dimen/activity_vertical_margin">
 
                 <TextView
@@ -98,6 +54,7 @@
                     android:id="@+id/ratingBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_below="@id/tvRate"
                     android:layout_centerHorizontal="true"
                     android:numStars="5" />

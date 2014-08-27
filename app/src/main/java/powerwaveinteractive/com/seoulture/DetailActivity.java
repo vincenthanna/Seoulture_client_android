@@ -18,38 +18,42 @@ public class DetailActivity extends Activity {
     ReviewListAdapter mAdapter;
     ArrayList<ReviewItem> _reviewArray;
 
+    TextView _tvTitle;
+    ImageView _ivTop;
+    ImageView _ivSub;
+    TextView _tvDescription;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        /*
-        _cultureItem = (CultureItem) getIntent().getSerializableExtra(
-                CULTURE_ITEM);
-
-
-        System.out.println("Received CultureItem:" + _cultureItem.title + ", " + _cultureItem.description);
-        */
-
         int cultureItemId = getIntent().getIntExtra(CULTURE_ITEM_ID, 0);
         _cultureItem = MainActivity.testDataStorage.getCultureItemById(cultureItemId);
         System.out.println("Received CultureItem:" + _cultureItem.title + ", " + _cultureItem.description);
 
-
         _reviewArray = new ArrayList<ReviewItem>();
         ReviewItem item;
-
         for (int i = 0; i < 3; i++) {
             item = new ReviewItem(i, i, "리뷰 씁니다.", "이것은 " + i + " 번째 리뷰이다.", 3.0);
             _reviewArray.add(item);
         }
 
-        ListView lv = (ListView)(findViewById(R.id.lv_review));
+        ListView lv = (ListView) (findViewById(R.id.lv_review));
 
         mAdapter = new ReviewListAdapter(this,
                 R.layout.dashboard_listitem_layout,
                 _reviewArray);
         lv.setAdapter(mAdapter);
+
+        _ivTop = (ImageView) findViewById(R.id.detail_mainpic);
+        _tvTitle = (TextView) findViewById(R.id.title);
+        _tvDescription = (TextView) findViewById(R.id.description);
+        _ivSub = (ImageView) findViewById(R.id.pic);
+
+        _ivTop.setImageBitmap(_cultureItem.bitmaps.get(0));
+        _tvTitle.setText(_cultureItem.title);
+        _tvDescription.setText(_cultureItem.description);
     }
 
 
