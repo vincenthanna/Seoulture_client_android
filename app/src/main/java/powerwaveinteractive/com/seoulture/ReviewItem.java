@@ -9,6 +9,7 @@ public class ReviewItem implements Serializable{
     int id;
     int cultureItemId;
     String name;
+    String title;
     String reviewText;
     double rating;
 
@@ -20,10 +21,11 @@ public class ReviewItem implements Serializable{
         rating = 0.0;
     }
 
-    ReviewItem(int id, int cultureItemId, String name, String review, double rating) {
+    ReviewItem(int id, int cultureItemId, String name,String title, String review, double rating) {
         this.id = id;
         this.cultureItemId = cultureItemId;
         this.name = name;
+        this.title = title;
         this.reviewText = review;
         this.rating = rating;
     }

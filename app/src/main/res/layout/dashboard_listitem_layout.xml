@@ -9,9 +9,9 @@
         android:id="@+id/textView_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="left"
         android:text="동대문 쥐불놀이(예시)"
-        android:textSize="32sp" />
+        android:textSize="24sp" />
     <ImageView
         android:id="@+id/imageView_pic"
         android:layout_width="128dp"
@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/imageView_pic"
         android:layout_below="@id/textView_title"
+        android:maxLines="5"
         android:text="행사에 대한 설명이 여기 들어가야 한다. 잘 써 놓길 바란다. 설렁설렁 하면 횽이 가만두지 않으마!"
         android:textSize="12sp" />
 

@@ -71,7 +71,7 @@
 
         <ListView android:id="@+id/lv_review"
             android:layout_width="fill_parent"
-            android:layout_height="500dp"/>
+            android:layout_height="1000dp"/>
 
     </RelativeLayout>
 </RelativeLayout>

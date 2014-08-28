@@ -36,6 +36,16 @@ public class TestDataStorage {
         return null;
     }
 
+    public ArrayList<ReviewItem> getReviews(int cultureId) {
+        ArrayList<ReviewItem> reviewItems = new ArrayList<ReviewItem>();
+        for(int i = 0; i < _reviews.size(); i++) {
+            if (_reviews.get(i).cultureItemId == cultureId) {
+                reviewItems.add(_reviews.get(i));
+            }
+        }
+        return reviewItems;
+    }
+
     public void buildTestData()
     {
         {
@@ -48,6 +58,7 @@ public class TestDataStorage {
                     "세시풍속, 세시놀이, 민속놀이 체험 등 다채로운 추석맞이 프로그램을 즐길 수 있는 오대감 한가위잔치에 오면 판소리 '눈대목열창', '강강술래', '각설이 놀음'등 신명나는 특별공연도 준비되어 있다.\n" +
                     "또한 9월 9일~10일 <평롱[平弄]: 그 평안한 떨림> 공연 50% 특별할인 등 다양한 볼거리들이 가득하다.");
             bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img1_0);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img1_1);item.bitmaps.add(bImg);
             _cultures.add(item);
 
             item = new CultureItem(id++, "한일축제마당 in 2014", "한일교류 축제의 장 '한일축제한마당'\n" +
@@ -132,19 +143,19 @@ public class TestDataStorage {
         {
             ReviewItem item;
             int id = 0;
-            item = new ReviewItem(id++, 0,"김보성", "의리 때문에 봤다 \n 의리 때문에... \n아......", 1.0);_reviews.add(item);
-            item = new ReviewItem(id++, 0,"정우성", "의리 때문에 봤다 \n 의리 때문에... \n아......", 1.0);_reviews.add(item);
-            item = new ReviewItem(id++, 0,"이효리", "이게 뭐시여.", 1.0);_reviews.add(item);
-            item = new ReviewItem(id++, 0,"장동건", "돈이 아깝다.", 1.0);_reviews.add(item);
+            item = new ReviewItem(id++, 0,"김보성","의리 때문에...", "의리 때문에 봤다 \n 의리 때문에... \n아......", 1.0);_reviews.add(item);
+            item = new ReviewItem(id++, 0,"정우성","홍보대사라서...", "의리 때문에 봤다 \n 의리 때문에... \n아......", 1.0);_reviews.add(item);
+            item = new ReviewItem(id++, 0,"이효리","허 참...", "이게 뭐시여.", 1.0);_reviews.add(item);
+            item = new ReviewItem(id++, 0,"장동건","준비가 부족했음.", "많은 아쉬움이 남는 행사였네요\n다음에는 좀 더 잘 준비하길\n바랍니다.", 1.0);_reviews.add(item);
 
-            item = new ReviewItem(id++, 1,"정우성", "완전 끝내줍니다.\n잘봤어요!", 5.0);_reviews.add(item);
-            item = new ReviewItem(id++, 1,"이민기", "Fantastic!", 4.0);_reviews.add(item);
-            item = new ReviewItem(id++, 1,"이효리", "놀랍구먼!\n두번 봣음.", 4.0);_reviews.add(item);
-            item = new ReviewItem(id++, 1,"장동건", "약간 아리송 하네여...", 3.0);_reviews.add(item);
+            item = new ReviewItem(id++, 1,"정우성","good!", "완전 끝내줍니다.\n잘봤어요!", 5.0);_reviews.add(item);
+            item = new ReviewItem(id++, 1,"이민기","괜찮네요.", "Fantastic!", 4.0);_reviews.add(item);
+            item = new ReviewItem(id++, 1,"이효리","주차가...", "놀랍구먼!\n두번 봣음.\n근데 주차장이 좀 부족 했습니다.\n다음에는 신경써 주세요.", 4.0);_reviews.add(item);
+            item = new ReviewItem(id++, 1,"장동건","이번행사 홍보대사 입니다.", "반갑습니다!", 3.0);_reviews.add(item);
 
-            item = new ReviewItem(id++, 3,"정우성", "완전 끝내줍니다.\n잘봤어요!", 3.0);_reviews.add(item);
-            item = new ReviewItem(id++, 3,"이민기", "Fantastic!", 3.0);_reviews.add(item);
-            item = new ReviewItem(id++, 3,"이효리", "아리송......", 3.0);_reviews.add(item);
+            item = new ReviewItem(id++, 3,"정우성","주차하느라 시간이 오래 걸렸네요.", "완전 끝내줍니다.\n잘봤어요!\n다음에는 주차공간도 신경써주세요.", 3.0);_reviews.add(item);
+            item = new ReviewItem(id++, 3,"이민기","홍보대사 이민기입니다.", "Fantastic!", 3.0);_reviews.add(item);
+            item = new ReviewItem(id++, 3,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 3.0);_reviews.add(item);
         }
     }
 }
