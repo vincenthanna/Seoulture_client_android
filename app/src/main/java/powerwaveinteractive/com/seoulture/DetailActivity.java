@@ -3,8 +3,10 @@ package powerwaveinteractive.com.seoulture;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.*;
 import android.widget.*;
+import android.view.View.*;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,7 @@ public class DetailActivity extends Activity {
     ImageView _ivTop;
     ImageView _ivSub;
     TextView _tvDescription;
+    ListView _lvReviews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,32 +33,34 @@ public class DetailActivity extends Activity {
 
         int cultureItemId = getIntent().getIntExtra(CULTURE_ITEM_ID, 0);
         _cultureItem = MainActivity.testDataStorage.getCultureItemById(cultureItemId);
-        System.out.println("Received CultureItem:" + _cultureItem.title + ", " + _cultureItem.description);
+        _reviewArray = MainActivity.testDataStorage.getReviews(cultureItemId);
 
-        _reviewArray = new ArrayList<ReviewItem>();
-        ReviewItem item;
-        for (int i = 0; i < 3; i++) {
-            item = new ReviewItem(i, i, "리뷰 씁니다.", "이것은 " + i + " 번째 리뷰이다.", 3.0);
-            _reviewArray.add(item);
-        }
-
-        ListView lv = (ListView) (findViewById(R.id.lv_review));
-
-        mAdapter = new ReviewListAdapter(this,
-                R.layout.dashboard_listitem_layout,
-                _reviewArray);
-        lv.setAdapter(mAdapter);
-
+        // find widgets
         _ivTop = (ImageView) findViewById(R.id.detail_mainpic);
         _tvTitle = (TextView) findViewById(R.id.title);
         _tvDescription = (TextView) findViewById(R.id.description);
         _ivSub = (ImageView) findViewById(R.id.pic);
+        _lvReviews = (ListView) (findViewById(R.id.lv_review));
 
-        _ivTop.setImageBitmap(_cultureItem.bitmaps.get(0));
-        _tvTitle.setText(_cultureItem.title);
-        _tvDescription.setText(_cultureItem.description);
+        mAdapter = new ReviewListAdapter(this,
+                R.layout.dashboard_listitem_layout,
+                _reviewArray);
+        _lvReviews.setAdapter(mAdapter);
+        mAdapter.listView = _lvReviews;
+
+        updateUI();
+
+        if (_reviewArray.size() == 0) {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    getTotalHeightofListView(_lvReviews);
+                }
+            }, 500);
+        }
+
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -75,11 +80,40 @@ public class DetailActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    void updateUI()
+    {
+        _ivSub.setImageBitmap(_cultureItem.bitmaps.get(0));
+        _ivTop.setImageBitmap(_cultureItem.bitmaps.get(1));
+        _tvTitle.setText(_cultureItem.title);
+        _tvDescription.setText(_cultureItem.description);
+    }
+
+    public static void getTotalHeightofListView(ListView listView) {
+        ListAdapter mAdapter = listView.getAdapter();
+        int totalHeight = 0;
+        for (int i = 0; i < mAdapter.getCount(); i++) {
+            View mView = mAdapter.getView(i, null, listView);
+
+            mView.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
+                    MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+
+            totalHeight += mView.getMeasuredHeight();
+            System.out.println("HEIGHT" + String.valueOf(totalHeight));
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (mAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.deferNotifyDataSetChanged();
+    }
 }
+
 
 
 // 어댑터 클래스
 class ReviewListAdapter extends BaseAdapter {
+    ListView listView;
     LayoutInflater inflater;
     ArrayList<ReviewItem> src;
 
@@ -89,17 +123,20 @@ class ReviewListAdapter extends BaseAdapter {
     }
 
     public int getCount() {
+        if (src.size() >= 3) {
+            return 3;
+        }
         return src.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return src.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return i;
+        return src.get(i).id;
     }
 
     // 각 항목의 view 생성
@@ -107,6 +144,22 @@ class ReviewListAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = new ReviewListItemLayout(parent.getContext());
         }
+        ReviewListItemLayout layout = (ReviewListItemLayout)convertView;
+        layout.preview = true;
+        layout.initUI();
+        layout.setReviewItem(src.get(position));
+
+
+        if (position == 0) {
+            convertView.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
+                    MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+
+            int height = convertView.getMeasuredHeight();
+            ViewGroup.LayoutParams params = listView.getLayoutParams();
+            params.height = height * this.getCount() + (listView.getDividerHeight() * (getCount() - 1));
+            listView.setLayoutParams(params);
+        }
+
         return convertView;
     }
 
