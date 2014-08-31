@@ -6,29 +6,38 @@
 
 
 
-    <ImageView
+    <Button
+        android:id = "@+id/btn_bookmark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_attachment"
+        android:drawableTop="@android:drawable/ic_input_get"
         android:layout_weight="1"
-        />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/btn_star_big_on"
-        android:layout_weight="1"
+        android:background="@android:color/background_light"
+        android:text="북마크"
         />
 
 
-    <ImageView
+
+    <Button
+        android:id = "@+id/btn_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/btn_star_big_on"
+        android:drawableTop="@android:drawable/ic_menu_share"
         android:layout_weight="1"
+        android:background="@android:color/background_light"
+        android:text="공유하기"
         />
 
 
+    <Button
+        android:id = "@+id/btn_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@android:drawable/btn_star_big_off"
+        android:layout_weight="1"
+        android:background="@android:color/background_light"
+        android:text="좋아요"
+        />
 
 
 </LinearLayout>

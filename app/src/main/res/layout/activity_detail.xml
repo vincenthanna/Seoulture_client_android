@@ -70,17 +70,18 @@
             android:id="@+id/review_ops"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/layout_reviewList">
+            android:layout_below="@id/layout_reviewList"
+            android:layout_marginBottom="@dimen/activity_vertical_margin">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_centerHorizontal="true"
-                android:text="위시리스트, 공유, 좋아요 버튼"
-                android:textSize="24sp" />
+            <include
+                android:id="@+id/socialLayout"
+                layout="@layout/detail_social_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
 
         </RelativeLayout>
 
+        <!--
         <RelativeLayout
             android:id="@+id/layout_recommends"
             android:layout_width="fill_parent"
@@ -93,6 +94,7 @@
                 android:text="추천목록"
                 android:textSize="48sp" />
         </RelativeLayout>
+        -->
 
     </RelativeLayout>
 
