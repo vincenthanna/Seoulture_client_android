@@ -26,6 +26,10 @@ public class DetailActivity extends Activity {
     TextView _tvDescription;
     ListView _lvReviews;
 
+    Button _btnBookmark;
+    Button _btnShare;
+    Button _btnLike;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +45,9 @@ public class DetailActivity extends Activity {
         _tvDescription = (TextView) findViewById(R.id.description);
         _ivSub = (ImageView) findViewById(R.id.pic);
         _lvReviews = (ListView) (findViewById(R.id.lv_review));
+        _btnBookmark = (Button)findViewById(R.id.btn_bookmark);
+        _btnShare = (Button)findViewById(R.id.btn_share);
+        _btnLike = (Button)findViewById(R.id.btn_like);
 
         mAdapter = new ReviewListAdapter(this,
                 R.layout.dashboard_listitem_layout,
@@ -59,6 +66,27 @@ public class DetailActivity extends Activity {
                 }
             }, 500);
         }
+
+        _btnBookmark.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("BtnBookmark pressed!");
+            }
+        });
+
+        _btnShare.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("BtnShare pressed!");
+            }
+        });
+
+        _btnLike.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("BtnLike pressed!");
+            }
+        });
 
     }
 
