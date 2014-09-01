@@ -1,7 +1,10 @@
 package powerwaveinteractive.com.seoulture;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.*;
@@ -29,6 +32,7 @@ public class DetailActivity extends Activity {
     Button _btnBookmark;
     Button _btnShare;
     Button _btnLike;
+    RatingBar _rbStar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,7 @@ public class DetailActivity extends Activity {
         _btnBookmark = (Button)findViewById(R.id.btn_bookmark);
         _btnShare = (Button)findViewById(R.id.btn_share);
         _btnLike = (Button)findViewById(R.id.btn_like);
+        _rbStar = (RatingBar)findViewById(R.id.ratingBar);
 
         mAdapter = new ReviewListAdapter(this,
                 R.layout.dashboard_listitem_layout,
@@ -87,6 +92,47 @@ public class DetailActivity extends Activity {
                 System.out.println("BtnLike pressed!");
             }
         });
+
+        _rbStar.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindwoShow();
+            }
+        });
+
+        _rbStar.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    popupWindwoShow();
+                }
+                return false;
+            }
+        });
+
+    }
+
+    void popupWindwoShow() {
+
+        ViewGroup view = (ViewGroup)getWindow().getDecorView().getRootView();
+        LayoutInflater inflater = (LayoutInflater)this.getSystemService(LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.review_editor_layout, view, false);
+
+        AlertDialog d = new AlertDialog.Builder(this)
+                .setNegativeButton("제출", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        EditText etTitle = (EditText)((Dialog)dialogInterface).findViewById(R.id.et_reviewTitle);
+                        EditText etDesc = (EditText)((Dialog)dialogInterface).findViewById(R.id.et_reviewDesc);
+                        System.out.println("제목:" + etTitle.getText() + " 내용:" + etDesc.getText());
+                    }
+                })
+                .setView(layout)
+                .create();
+
+
+        d.show();
+
 
     }
 
