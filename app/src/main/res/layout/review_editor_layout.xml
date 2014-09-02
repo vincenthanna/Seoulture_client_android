@@ -45,4 +45,12 @@
         android:lines="3"
         android:hint="Description"/>
 
+    <Button
+        android:id="@+id/btn_review_submit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_reviewDesc"
+        android:text="제출하기"
+        android:background="@android:color/background_light"/>
+
 </RelativeLayout>

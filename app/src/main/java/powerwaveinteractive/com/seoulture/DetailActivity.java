@@ -118,6 +118,7 @@ public class DetailActivity extends Activity {
         LayoutInflater inflater = (LayoutInflater)this.getSystemService(LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.review_editor_layout, view, false);
 
+        /*
         AlertDialog d = new AlertDialog.Builder(this)
                 .setNegativeButton("제출", new DialogInterface.OnClickListener() {
                     @Override
@@ -129,8 +130,8 @@ public class DetailActivity extends Activity {
                 })
                 .setView(layout)
                 .create();
-
-
+        */
+        Dialog d = new ReviewEditorDialog(this);
         d.show();
 
 
