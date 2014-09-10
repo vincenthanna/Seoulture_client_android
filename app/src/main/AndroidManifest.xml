@@ -20,6 +20,11 @@
             android:name=".DetailActivity"
             android:label="@string/title_activity_detail" >
         </activity>
+        <activity
+            android:name=".ReviewActivity"
+            android:label="@string/title_activity_review" >
+        </activity>
+        <uses-permission android:name="android.permission.INTERNET"/>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

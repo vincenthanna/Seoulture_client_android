@@ -5,13 +5,23 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.AttributeSet;
 import android.view.*;
 import android.widget.*;
 import android.view.View.*;
+import android.webkit.*;
+import android.webkit.WebViewClient.*;
+import android.webkit.WebSettings.*;
 
+import java.text.Format;
 import java.util.ArrayList;
+
+import powerwaveinteractive.com.seoulture.Views.BarChartView;
 
 
 public class DetailActivity extends Activity {
@@ -33,6 +43,12 @@ public class DetailActivity extends Activity {
     Button _btnShare;
     Button _btnLike;
     RatingBar _rbStar;
+    RatingBar _rbRatingAvg;
+    //WebView _wbRatingStat
+    LinearLayout _ratingBarLayout;
+    TextView _tvRatingAvg;
+    TextView _tvReviewTotal;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +69,15 @@ public class DetailActivity extends Activity {
         _btnShare = (Button)findViewById(R.id.btn_share);
         _btnLike = (Button)findViewById(R.id.btn_like);
         _rbStar = (RatingBar)findViewById(R.id.ratingBar);
-
+        _ratingBarLayout = (LinearLayout)findViewById(R.id.ratingsGraph);
+        _tvRatingAvg = (TextView)findViewById(R.id.ratingAvgTxt);
+        _tvReviewTotal = (TextView)findViewById(R.id.tv_ratingTotalNum);
+        _rbRatingAvg = (RatingBar)findViewById(R.id.ratingAvgBar);
         mAdapter = new ReviewListAdapter(this,
                 R.layout.dashboard_listitem_layout,
                 _reviewArray);
         _lvReviews.setAdapter(mAdapter);
         mAdapter.listView = _lvReviews;
-
-        updateUI();
 
         if (_reviewArray.size() == 0) {
             Handler handler = new Handler();
@@ -110,6 +127,26 @@ public class DetailActivity extends Activity {
             }
         });
 
+        updateUI();
+
+    }
+
+    public void drawChart(LinearLayout layout) {
+        BarChartView view = new BarChartView(this);
+        int[] array = new int[6];
+        for (int i = 0; i < _reviewArray.size(); i++) {
+            ReviewItem reviewItem = _reviewArray.get(i);
+            array[(int)Math.round(reviewItem.rating)]++;
+        }
+        view.setData(5, array);
+        ViewGroup.LayoutParams layoutParams = layout.getLayoutParams();
+        layout.addView(view);
+        ViewGroup.LayoutParams viewParams = view.getLayoutParams();
+
+        viewParams.width = layoutParams.width;
+        viewParams.height = layoutParams.height;
+
+        view.setLayoutParams(viewParams);
     }
 
     void popupWindwoShow() {
@@ -118,23 +155,22 @@ public class DetailActivity extends Activity {
         LayoutInflater inflater = (LayoutInflater)this.getSystemService(LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.review_editor_layout, view, false);
 
-        /*
-        AlertDialog d = new AlertDialog.Builder(this)
-                .setNegativeButton("제출", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        EditText etTitle = (EditText)((Dialog)dialogInterface).findViewById(R.id.et_reviewTitle);
-                        EditText etDesc = (EditText)((Dialog)dialogInterface).findViewById(R.id.et_reviewDesc);
-                        System.out.println("제목:" + etTitle.getText() + " 내용:" + etDesc.getText());
-                    }
-                })
-                .setView(layout)
-                .create();
-        */
-        Dialog d = new ReviewEditorDialog(this);
+        //FIXME: 먼저 작성한 리뷰가 있다면 찾아서 넘겨주고 그렇지 않다면 빈 것을 생성해서 넘겨준다.
+        ReviewItem reviewItem = new ReviewItem(0, 0, "kim", "Hello", "Test",0.0f);
+
+        ReviewEditorDialog d = new ReviewEditorDialog(this, reviewItem);
+        d.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                ReviewEditorDialog dlg = (ReviewEditorDialog)dialogInterface;
+                if (dlg.submit) {
+                    System.out.println("title=" + dlg._reviewItem.title + " desc=" + dlg._reviewItem.reviewText + " rating=" +
+                            String.format("%f", dlg._reviewItem.rating));
+                }
+            }
+        });
+
         d.show();
-
-
     }
 
     @Override
@@ -162,6 +198,18 @@ public class DetailActivity extends Activity {
         _ivTop.setImageBitmap(_cultureItem.bitmaps.get(1));
         _tvTitle.setText(_cultureItem.title);
         _tvDescription.setText(_cultureItem.description);
+        drawChart(_ratingBarLayout);
+
+        // rating avg
+        double ratingAvg = 0;
+        for (int i = 0;i < _reviewArray.size(); i++) {
+            ReviewItem ri = _reviewArray.get(i);
+            ratingAvg += ri.rating;
+        }
+        ratingAvg /= _reviewArray.size();
+        _rbRatingAvg.setRating((float)ratingAvg);
+        _tvRatingAvg.setText( String.format("%.01f", ratingAvg));
+        _tvReviewTotal.setText(String.format("%d", _reviewArray.size()));
     }
 
     public static void getTotalHeightofListView(ListView listView) {

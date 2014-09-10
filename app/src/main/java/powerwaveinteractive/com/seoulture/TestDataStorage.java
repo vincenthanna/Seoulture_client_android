@@ -147,15 +147,33 @@ public class TestDataStorage {
             item = new ReviewItem(id++, 0,"정우성","홍보대사라서...", "의리 때문에 봤다 \n 의리 때문에... \n아......", 1.0);_reviews.add(item);
             item = new ReviewItem(id++, 0,"이효리","허 참...", "이게 뭐시여.", 1.0);_reviews.add(item);
             item = new ReviewItem(id++, 0,"장동건","준비가 부족했음.", "많은 아쉬움이 남는 행사였네요\n다음에는 좀 더 잘 준비하길\n바랍니다.", 1.0);_reviews.add(item);
+            item = new ReviewItem(id++, 0,"장동건","준비가 부족했음.", "많은 아쉬움이 남는 행사였네요\n다음에는 좀 더 잘 준비하길\n바랍니다.", 2.0);_reviews.add(item);
+            item = new ReviewItem(id++, 0,"장동건","준비가 부족했음.", "많은 아쉬움이 남는 행사였네요\n다음에는 좀 더 잘 준비하길\n바랍니다.", 3.0);_reviews.add(item);
+            item = new ReviewItem(id++, 0,"장동건","준비가 부족했음.", "많은 아쉬움이 남는 행사였네요\n다음에는 좀 더 잘 준비하길\n바랍니다.", 3.0);_reviews.add(item);
+            item = new ReviewItem(id++, 0,"장동건","준비가 부족했음.", "많은 아쉬움이 남는 행사였네요\n다음에는 좀 더 잘 준비하길\n바랍니다.", 4.0);_reviews.add(item);
+            item = new ReviewItem(id++, 0,"장동건","준비가 부족했음.", "많은 아쉬움이 남는 행사였네요\n다음에는 좀 더 잘 준비하길\n바랍니다.", 4.0);_reviews.add(item);
+            item = new ReviewItem(id++, 0,"장동건","준비가 부족했음.", "많은 아쉬움이 남는 행사였네요\n다음에는 좀 더 잘 준비하길\n바랍니다.", 4.0);_reviews.add(item);
+            item = new ReviewItem(id++, 0,"장동건","준비가 부족했음.", "많은 아쉬움이 남는 행사였네요\n다음에는 좀 더 잘 준비하길\n바랍니다.", 5.0);_reviews.add(item);
+            item = new ReviewItem(id++, 0,"장동건","준비가 부족했음.", "많은 아쉬움이 남는 행사였네요\n다음에는 좀 더 잘 준비하길\n바랍니다.", 1.0);_reviews.add(item);
 
             item = new ReviewItem(id++, 1,"정우성","good!", "완전 끝내줍니다.\n잘봤어요!", 5.0);_reviews.add(item);
             item = new ReviewItem(id++, 1,"이민기","괜찮네요.", "Fantastic!", 4.0);_reviews.add(item);
             item = new ReviewItem(id++, 1,"이효리","주차가...", "놀랍구먼!\n두번 봣음.\n근데 주차장이 좀 부족 했습니다.\n다음에는 신경써 주세요.", 4.0);_reviews.add(item);
             item = new ReviewItem(id++, 1,"장동건","이번행사 홍보대사 입니다.", "반갑습니다!", 3.0);_reviews.add(item);
+            item = new ReviewItem(id++, 1,"장동건","이번행사 홍보대사 입니다.", "반갑습니다!", 2.0);_reviews.add(item);
+            item = new ReviewItem(id++, 1,"장동건","이번행사 홍보대사 입니다.", "반갑습니다!", 3.0);_reviews.add(item);
+            item = new ReviewItem(id++, 1,"장동건","이번행사 홍보대사 입니다.", "반갑습니다!", 3.0);_reviews.add(item);
 
             item = new ReviewItem(id++, 3,"정우성","주차하느라 시간이 오래 걸렸네요.", "완전 끝내줍니다.\n잘봤어요!\n다음에는 주차공간도 신경써주세요.", 3.0);_reviews.add(item);
             item = new ReviewItem(id++, 3,"이민기","홍보대사 이민기입니다.", "Fantastic!", 3.0);_reviews.add(item);
             item = new ReviewItem(id++, 3,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 3.0);_reviews.add(item);
+            item = new ReviewItem(id++, 3,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 2.0);_reviews.add(item);
+            item = new ReviewItem(id++, 3,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 4.0);_reviews.add(item);
+            item = new ReviewItem(id++, 3,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 5.0);_reviews.add(item);
+            item = new ReviewItem(id++, 3,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 2.0);_reviews.add(item);
+            item = new ReviewItem(id++, 3,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 2.0);_reviews.add(item);
+            item = new ReviewItem(id++, 3,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 2.0);_reviews.add(item);
+            item = new ReviewItem(id++, 3,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 2.0);_reviews.add(item);
         }
     }
 }
