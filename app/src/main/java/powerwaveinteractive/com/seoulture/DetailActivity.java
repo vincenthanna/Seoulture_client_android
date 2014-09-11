@@ -5,11 +5,17 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.*;
 import android.widget.*;
@@ -17,14 +23,17 @@ import android.view.View.*;
 import android.webkit.*;
 import android.webkit.WebViewClient.*;
 import android.webkit.WebSettings.*;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 
 import java.text.Format;
 import java.util.ArrayList;
 
 import powerwaveinteractive.com.seoulture.Views.BarChartView;
+import powerwaveinteractive.com.tabsswipe.adapter.TabsPagerAdapter;
 
 
-public class DetailActivity extends Activity {
+public class DetailActivity extends FragmentActivity {
 
     static String CULTURE_ITEM = "CULTUREITEM";
     static String CULTURE_ITEM_ID = "CULTUREITEMID";
@@ -35,6 +44,7 @@ public class DetailActivity extends Activity {
 
     TextView _tvTitle;
     ImageView _ivTop;
+    ViewPager _vpTop;
     ImageView _ivSub;
     TextView _tvDescription;
     ListView _lvReviews;
@@ -60,7 +70,12 @@ public class DetailActivity extends Activity {
         _reviewArray = MainActivity.testDataStorage.getReviews(cultureItemId);
 
         // find widgets
-        _ivTop = (ImageView) findViewById(R.id.detail_mainpic);
+        //_ivTop = (ImageView) findViewById(R.id.detail_mainpic);
+        _vpTop = (ViewPager) findViewById(R.id.detail_mainpic);
+        SwipeImageViewAdapter adapter = new SwipeImageViewAdapter(getSupportFragmentManager());
+        adapter.bitmaps = _cultureItem.bitmaps;
+        _vpTop.setAdapter(adapter);
+
         _tvTitle = (TextView) findViewById(R.id.title);
         _tvDescription = (TextView) findViewById(R.id.description);
         _ivSub = (ImageView) findViewById(R.id.pic);
@@ -195,7 +210,7 @@ public class DetailActivity extends Activity {
     void updateUI()
     {
         _ivSub.setImageBitmap(_cultureItem.bitmaps.get(0));
-        _ivTop.setImageBitmap(_cultureItem.bitmaps.get(1));
+        //_ivTop.setImageBitmap(_cultureItem.bitmaps.get(1));
         _tvTitle.setText(_cultureItem.title);
         _tvDescription.setText(_cultureItem.description);
         drawChart(_ratingBarLayout);
@@ -206,7 +221,8 @@ public class DetailActivity extends Activity {
             ReviewItem ri = _reviewArray.get(i);
             ratingAvg += ri.rating;
         }
-        ratingAvg /= _reviewArray.size();
+        int reviewCount = _reviewArray.size() == 0 ? 1 : _reviewArray.size();
+        ratingAvg /= reviewCount;
         _rbRatingAvg.setRating((float)ratingAvg);
         _tvRatingAvg.setText( String.format("%.01f", ratingAvg));
         _tvReviewTotal.setText(String.format("%d", _reviewArray.size()));
@@ -294,5 +310,54 @@ class ReviewListAdapter extends BaseAdapter {
     @Override
     public int getItemViewType(int position) {
         return 1;
+    }
+}
+
+
+
+class SwipeImageViewFragment extends Fragment {
+
+    Bitmap _bitmapToShow;
+
+    public SwipeImageViewFragment(Bitmap bitmap) {
+        super();
+        _bitmapToShow = bitmap;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        ImageView imgView = new ImageView(getActivity());
+        imgView.setImageBitmap(_bitmapToShow);
+
+        return imgView;
+    }
+}
+
+class SwipeImageViewAdapter extends FragmentPagerAdapter {
+
+    public SwipeImageViewAdapter(FragmentManager fm) {
+        super(fm);
+    }
+
+    public int count = 1;
+    public ArrayList<Bitmap> bitmaps;
+
+    @Override
+    public Fragment getItem(int index) {
+
+        return new SwipeImageViewFragment(bitmaps.get(index));
+    }
+
+    @Override
+    public int getCount() {
+        // get item count - equal to number of tabs
+        return bitmaps.size();
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return null;
     }
 }

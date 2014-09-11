@@ -17,6 +17,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
+            <!--
             <ImageView
                 android:id="@+id/detail_mainpic"
                 android:layout_width="fill_parent"
@@ -26,6 +27,18 @@
                 android:clickable="false"
                 android:adjustViewBounds="true"
                 android:src="@drawable/si1" />
+                -->
+
+            <android.support.v4.view.ViewPager
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/detail_mainpic"
+                android:layout_width="fill_parent"
+                android:layout_height="300dp"
+                android:layout_alignParentStart="false"
+                android:baselineAlignBottom="false"
+                android:adjustViewBounds="true"
+                android:background="#00ff00"/>
+
 
             <include
                 android:id="@+id/detail_title"
