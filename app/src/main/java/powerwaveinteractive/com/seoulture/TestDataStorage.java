@@ -137,6 +137,11 @@ public class TestDataStorage {
             bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_03);item.bitmaps.add(bImg);
             bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_04);item.bitmaps.add(bImg);
             bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_05);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_06);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_07);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_08);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_09);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_10);item.bitmaps.add(bImg);
             _cultures.add(item);
         }
 

@@ -1,20 +1,15 @@
 package powerwaveinteractive.com.seoulture;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
+import android.app.*;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
+import android.graphics.*;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.annotation.Nullable;
+import android.support.v4.app.*;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.*;
@@ -23,15 +18,13 @@ import android.view.View.*;
 import android.webkit.*;
 import android.webkit.WebViewClient.*;
 import android.webkit.WebSettings.*;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 
 import java.text.Format;
 import java.util.ArrayList;
 
-import powerwaveinteractive.com.seoulture.Views.BarChartView;
-import powerwaveinteractive.com.tabsswipe.adapter.TabsPagerAdapter;
-
+import powerwaveinteractive.com.seoulture.Views.*;
+import powerwaveinteractive.com.tabsswipe.adapter.*;
 
 public class DetailActivity extends FragmentActivity {
 
@@ -43,7 +36,6 @@ public class DetailActivity extends FragmentActivity {
     ArrayList<ReviewItem> _reviewArray;
 
     TextView _tvTitle;
-    ImageView _ivTop;
     ViewPager _vpTop;
     ImageView _ivSub;
     TextView _tvDescription;
@@ -59,7 +51,6 @@ public class DetailActivity extends FragmentActivity {
     TextView _tvRatingAvg;
     TextView _tvReviewTotal;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,8 +60,6 @@ public class DetailActivity extends FragmentActivity {
         _cultureItem = MainActivity.testDataStorage.getCultureItemById(cultureItemId);
         _reviewArray = MainActivity.testDataStorage.getReviews(cultureItemId);
 
-        // find widgets
-        //_ivTop = (ImageView) findViewById(R.id.detail_mainpic);
         _vpTop = (ViewPager) findViewById(R.id.detail_mainpic);
         SwipeImageViewAdapter adapter = new SwipeImageViewAdapter(getSupportFragmentManager());
         adapter.bitmaps = _cultureItem.bitmaps;
@@ -165,7 +154,6 @@ public class DetailActivity extends FragmentActivity {
     }
 
     void popupWindwoShow() {
-
         ViewGroup view = (ViewGroup)getWindow().getDecorView().getRootView();
         LayoutInflater inflater = (LayoutInflater)this.getSystemService(LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.review_editor_layout, view, false);
@@ -315,49 +303,3 @@ class ReviewListAdapter extends BaseAdapter {
 
 
 
-class SwipeImageViewFragment extends Fragment {
-
-    Bitmap _bitmapToShow;
-
-    public SwipeImageViewFragment(Bitmap bitmap) {
-        super();
-        _bitmapToShow = bitmap;
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        ImageView imgView = new ImageView(getActivity());
-        imgView.setImageBitmap(_bitmapToShow);
-
-        return imgView;
-    }
-}
-
-class SwipeImageViewAdapter extends FragmentPagerAdapter {
-
-    public SwipeImageViewAdapter(FragmentManager fm) {
-        super(fm);
-    }
-
-    public int count = 1;
-    public ArrayList<Bitmap> bitmaps;
-
-    @Override
-    public Fragment getItem(int index) {
-
-        return new SwipeImageViewFragment(bitmaps.get(index));
-    }
-
-    @Override
-    public int getCount() {
-        // get item count - equal to number of tabs
-        return bitmaps.size();
-    }
-
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return null;
-    }
-}

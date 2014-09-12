@@ -13,39 +13,32 @@
         tools:context="powerwaveinteractive.com.seoulture.DetailActivity">
 
         <RelativeLayout
-            android:id="@+id/layout_desc"
+            android:id="@+id/layout_swipeImageView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
-
-            <!--
-            <ImageView
-                android:id="@+id/detail_mainpic"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="false"
-                android:baselineAlignBottom="false"
-                android:clickable="false"
-                android:adjustViewBounds="true"
-                android:src="@drawable/si1" />
-                -->
 
             <android.support.v4.view.ViewPager
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/detail_mainpic"
                 android:layout_width="fill_parent"
-                android:layout_height="300dp"
+                android:layout_height="240dp"
                 android:layout_alignParentStart="false"
                 android:baselineAlignBottom="false"
-                android:adjustViewBounds="true"
-                android:background="#00ff00"/>
+                android:adjustViewBounds="true"/>
 
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_desc"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_swipeImageView">
 
             <include
                 android:id="@+id/detail_title"
                 layout="@layout/detail_title_layout"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/detail_mainpic" />
+                android:layout_height="wrap_content"/>
 
             <RelativeLayout
                 android:id="@+id/rating"
