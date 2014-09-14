@@ -27,4 +27,8 @@ public class CultureItem implements Serializable {
         this.title = title;
         this.description = desc;
     }
+
+    public int getId() {
+        return id;
+    }
 }

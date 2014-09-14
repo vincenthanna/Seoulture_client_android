@@ -4,9 +4,8 @@
     android:layout_height="match_parent"
     tools:context="powerwaveinteractive.com.seoulture.ReviewActivity">
 
-    <include
+    <include layout="@layout/review_list_layout"
         android:id="@+id/layout_reviewList"
-        layout="@layout/review_list_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layout_desc" />

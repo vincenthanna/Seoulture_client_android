@@ -3,6 +3,7 @@ package powerwaveinteractive.com.seoulture;
 import android.app.*;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.*;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
@@ -198,10 +199,8 @@ public class DetailActivity extends FragmentActivity {
     void updateUI()
     {
         _ivSub.setImageBitmap(_cultureItem.bitmaps.get(0));
-        //_ivTop.setImageBitmap(_cultureItem.bitmaps.get(1));
         _tvTitle.setText(_cultureItem.title);
         _tvDescription.setText(_cultureItem.description);
-        drawChart(_ratingBarLayout);
 
         // rating avg
         double ratingAvg = 0;
@@ -214,6 +213,7 @@ public class DetailActivity extends FragmentActivity {
         _rbRatingAvg.setRating((float)ratingAvg);
         _tvRatingAvg.setText( String.format("%.01f", ratingAvg));
         _tvReviewTotal.setText(String.format("%d", _reviewArray.size()));
+        drawChart(_ratingBarLayout);
     }
 
     public static void getTotalHeightofListView(ListView listView) {
@@ -233,6 +233,14 @@ public class DetailActivity extends FragmentActivity {
         params.height = totalHeight + (listView.getDividerHeight() * (mAdapter.getCount() - 1));
         listView.setLayoutParams(params);
         listView.deferNotifyDataSetChanged();
+    }
+
+    void reviewActivity() {
+        Intent intent = new Intent(this, ReviewActivity.class);
+        //int cultureItemId = dashboardItemList.get(position).getCultureItem().id;
+        int cultureItemId = _cultureItem.id;
+        intent.putExtra(DetailActivity.CULTURE_ITEM_ID, cultureItemId);
+        startActivity(intent);
     }
 }
 
