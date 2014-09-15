@@ -47,7 +47,6 @@ public class DetailActivity extends FragmentActivity {
     Button _btnLike;
     RatingBar _rbStar;
     RatingBar _rbRatingAvg;
-    //WebView _wbRatingStat
     LinearLayout _ratingBarLayout;
     TextView _tvRatingAvg;
     TextView _tvReviewTotal;
@@ -74,13 +73,25 @@ public class DetailActivity extends FragmentActivity {
         _btnShare = (Button)findViewById(R.id.btn_share);
         _btnLike = (Button)findViewById(R.id.btn_like);
         _rbStar = (RatingBar)findViewById(R.id.ratingBar);
+        OnClickListener listener_review = new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reviewActivity();
+            }
+        };
+
         _ratingBarLayout = (LinearLayout)findViewById(R.id.ratingsGraph);
+        _ratingBarLayout.setOnClickListener(listener_review);
         _tvRatingAvg = (TextView)findViewById(R.id.ratingAvgTxt);
+        _tvRatingAvg.setOnClickListener(listener_review);
         _tvReviewTotal = (TextView)findViewById(R.id.tv_ratingTotalNum);
+        _tvReviewTotal.setOnClickListener(listener_review);
         _rbRatingAvg = (RatingBar)findViewById(R.id.ratingAvgBar);
+        _rbRatingAvg.setOnClickListener(listener_review);
         mAdapter = new ReviewListAdapter(this,
                 R.layout.dashboard_listitem_layout,
                 _reviewArray);
+        mAdapter.setShowFull(false);
         _lvReviews.setAdapter(mAdapter);
         mAdapter.listView = _lvReviews;
 
@@ -241,71 +252,6 @@ public class DetailActivity extends FragmentActivity {
         int cultureItemId = _cultureItem.id;
         intent.putExtra(DetailActivity.CULTURE_ITEM_ID, cultureItemId);
         startActivity(intent);
-    }
-}
-
-
-
-// 어댑터 클래스
-class ReviewListAdapter extends BaseAdapter {
-    ListView listView;
-    LayoutInflater inflater;
-    ArrayList<ReviewItem> src;
-
-    public ReviewListAdapter(Context context, int layout, ArrayList<ReviewItem> src) {
-        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.src = src;
-    }
-
-    public int getCount() {
-        if (src.size() >= 3) {
-            return 3;
-        }
-        return src.size();
-    }
-
-    @Override
-    public Object getItem(int i) {
-        return src.get(i);
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return src.get(i).id;
-    }
-
-    // 각 항목의 view 생성
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = new ReviewListItemLayout(parent.getContext());
-        }
-        ReviewListItemLayout layout = (ReviewListItemLayout)convertView;
-        layout.preview = true;
-        layout.initUI();
-        layout.setReviewItem(src.get(position));
-
-
-        if (position == 0) {
-            convertView.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
-                    MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-
-            int height = convertView.getMeasuredHeight();
-            ViewGroup.LayoutParams params = listView.getLayoutParams();
-            params.height = height * this.getCount() + (listView.getDividerHeight() * (getCount() - 1));
-            listView.setLayoutParams(params);
-        }
-
-        return convertView;
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        return 1;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return 1;
     }
 }
 

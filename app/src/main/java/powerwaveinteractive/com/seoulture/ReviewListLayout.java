@@ -29,10 +29,20 @@ public class ReviewListLayout extends RelativeLayout {
     TextView _tvRatingTotal;
     LinearLayout _llRatingsGraph;
     ListView _lvReview;
+    ReviewListAdapter _adapter;
 
     public ReviewListLayout(Context context) {
         super(context);
         this._context = context;
+        LayoutInflater li = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        li.inflate(R.layout.review_list_layout, this);
+        initUI();
+    }
+
+    public ReviewListLayout(Context context, CultureItem cultureItem) {
+        super(context);
+        this._context = context;
+        this._cultureItem = cultureItem;
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         li.inflate(R.layout.review_list_layout, this);
         initUI();
@@ -60,8 +70,17 @@ public class ReviewListLayout extends RelativeLayout {
         _tvRatingTotal = (TextView)findViewById(R.id.tv_ratingTotalNum);
         _llRatingsGraph = (LinearLayout)findViewById(R.id.ratingsGraph);
         _lvReview = (ListView)findViewById(R.id.lv_review);
+        _lvReview.setFocusable(false);
 
         _reviewArray = MainActivity.testDataStorage.getReviews(_cultureItem.getId());
+
+        _adapter = new ReviewListAdapter(_context,
+                R.layout.dashboard_listitem_layout,
+                _reviewArray);
+        _lvReview.setAdapter(_adapter);
+        _adapter.listView = _lvReview;
+
+        updateUI();
     }
 
     void updateUI() {
@@ -80,7 +99,7 @@ public class ReviewListLayout extends RelativeLayout {
     }
 
     public void drawChart(LinearLayout layout) {
-        BarChartView view = new BarChartView(this);
+        BarChartView view = new BarChartView(_context);
         int[] array = new int[6];
         for (int i = 0; i < _reviewArray.size(); i++) {
             ReviewItem reviewItem = _reviewArray.get(i);

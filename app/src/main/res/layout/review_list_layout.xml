@@ -75,6 +75,7 @@
 
         <ListView android:id="@+id/lv_review"
             android:layout_width="fill_parent"
+            android:listSelector="@android:color/transparent"
             android:layout_height="1000dp"/>
 
     </RelativeLayout>

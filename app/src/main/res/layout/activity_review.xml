@@ -1,13 +1,17 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sv_reviews"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="powerwaveinteractive.com.seoulture.ReviewActivity">
+    android:fillViewport="true"
+    android:scrollbars="none">
 
-    <include layout="@layout/review_list_layout"
-        android:id="@+id/layout_reviewList"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layout_desc" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_review_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="powerwaveinteractive.com.seoulture.ReviewActivity">
 
-</RelativeLayout>
+    </RelativeLayout>
+
+</ScrollView>
