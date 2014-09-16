@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sv_searchActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none">
 
-    <include layout="@layout/search_setting_layout"
-        android:id="@+id/searchsettingslayout"
-        android:layout_height="60dp"
-        android:layout_width="fill_parent" />
-
-    <ListView
-        android:id="@+id/search_lv"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/searchsettingslayout">
-    </ListView>
+        android:layout_height="match_parent">
 
-</RelativeLayout>
+        <ListView
+            android:id="@+id/search_lv"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
+
+    </RelativeLayout>
+
+</ScrollView>

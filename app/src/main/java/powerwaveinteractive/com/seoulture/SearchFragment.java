@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
@@ -26,12 +29,13 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        setHasOptionsMenu(true);
         searchItemList = new ArrayList<CultureItem>();
         CultureItem item;
 
-        for (int i = 0; i < 8; i++) {
-            item = new CultureItem(i, "fromSearchFragment", "이것은 SearchFragment에서 넘어온것이다.");
-            searchItemList.add(item);
+        searchItemList = new ArrayList<CultureItem>();
+        for (int i = 0; i < searchItemList.size(); i++) {
+
         }
 
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
@@ -60,6 +64,27 @@ public class SearchFragment extends Fragment {
 
         }
     };
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.searchfragmentmenu, menu);
+
+        // TODO Add your menu entries here
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_search) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
 
 // 어댑터 클래스
@@ -88,9 +113,12 @@ class SearchListAdapter extends BaseAdapter {
 
     // 각 항목의 view 생성
     public View getView(int position, View convertView, ViewGroup parent) {
+        DashboardItemLayout layout;
         if (convertView == null) {
             convertView = new DashboardItemLayout(parent.getContext());
         }
+        layout = (DashboardItemLayout)convertView;
+        layout.setCultureItem(MainActivity.testDataStorage._cultures.get(position));
         return convertView;
     }
 

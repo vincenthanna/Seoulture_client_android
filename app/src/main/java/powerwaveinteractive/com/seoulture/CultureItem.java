@@ -21,6 +21,11 @@ public class CultureItem implements Serializable {
         description = "";
     }
 
+    CultureItem(CultureItem item) {
+        this.id = item.id;
+        this.title = item.title;
+    }
+
     CultureItem(int id, String title, String desc) {
         bitmaps = new ArrayList<Bitmap>();
         this.id = id;

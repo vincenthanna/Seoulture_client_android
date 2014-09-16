@@ -38,8 +38,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         // SlidingTabLayout 설정
         mSlidingTabLayout = (SlidingTabLayout)findViewById(R.id.sliding_tabs);
         mSlidingTabLayout.setViewPager(viewPager);
-
-
     }
 
 
