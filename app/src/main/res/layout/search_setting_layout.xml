@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
     <TextView
         android:id="@+id/textView_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_centerHorizontal="true"
         android:text="여기에 검색관련 UI가 그려집니다."
-        android:layout_centerInParent="true"
         android:textSize="20sp" />
+    <Button
+        android:id="@+id/btn_review_submit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_title"
+        android:text="제출하기"
+        android:background="@android:color/background_light"/>
 
 </RelativeLayout>

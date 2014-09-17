@@ -1,6 +1,7 @@
 package powerwaveinteractive.com.seoulture;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -33,9 +34,10 @@ public class SearchFragment extends Fragment {
         searchItemList = new ArrayList<CultureItem>();
         CultureItem item;
 
-        searchItemList = new ArrayList<CultureItem>();
-        for (int i = 0; i < searchItemList.size(); i++) {
-
+        ArrayList<CultureItem> cultureArray = MainActivity.testDataStorage._cultures;
+        for (int i = 0; i < cultureArray.size(); i++) {
+            item = new CultureItem(cultureArray.get(i));
+            searchItemList.add(item);
         }
 
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
@@ -58,10 +60,9 @@ public class SearchFragment extends Fragment {
         public void onItemClick(AdapterView<?> parent, View view, int position,
                                 long l_position) {
             Intent intent = new Intent(activity, DetailActivity.class);
-            CultureItem item = searchItemList.get(position);
-            intent.putExtra(DetailActivity.CULTURE_ITEM, item);
+            int cultureItemId = searchItemList.get(position).id;
+            intent.putExtra(DetailActivity.CULTURE_ITEM_ID, cultureItemId);
             startActivity(intent);
-
         }
     };
 
@@ -81,9 +82,38 @@ public class SearchFragment extends Fragment {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_search) {
+            //popupWindwoShow();
+            activity.onSearchRequested();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    void popupWindwoShow() {
+        ViewGroup view = (ViewGroup)this.getView().getRootView();
+
+        SearchSettingDialog d = new SearchSettingDialog(activity);
+        d.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                SearchSettingDialog dlg = (SearchSettingDialog)dialogInterface;
+                System.out.println("SearchSettingDialog closed.");
+                // OK가 눌러졌을 때에만 검색필터를 갱신하고 ListView를 refresh해야 한다.
+            }
+        });
+
+        d.show();
+    }
+
+
+    void doSearch()
+    {
+        CultureItem item;
+        ArrayList<CultureItem> cultureArray = MainActivity.testDataStorage._cultures;
+        for (int i = 0; i < cultureArray.size(); i++) {
+            item = new CultureItem(cultureArray.get(i));
+            searchItemList.add(item);
+        }
     }
 }
 
