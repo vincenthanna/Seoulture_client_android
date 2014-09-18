@@ -1,9 +1,14 @@
 package powerwaveinteractive.com.seoulture;
 
+import android.app.ActionBar;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SearchRecentSuggestionsProvider;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.SearchRecentSuggestions;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -19,12 +24,14 @@ import java.util.ArrayList;
 /**
  * Created by vincenthanna on 8/21/14.
  */
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private ListView lv;
     private ListAdapter lvAdapter;
     ArrayList<CultureItem> searchItemList;
     FragmentActivity activity;
+    //SearchRecentSuggestions _searchSuggestion;
+    MySuggestionProvider suggestionProvider;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +59,9 @@ public class SearchFragment extends Fragment {
         lv.setAdapter(lvAdapter);
 
         activity = this.getActivity();
+
+        suggestionProvider = new MySuggestionProvider();
+
         return rootView;
     }
 
@@ -71,6 +81,23 @@ public class SearchFragment extends Fragment {
 
         inflater.inflate(R.menu.searchfragmentmenu, menu);
 
+
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) activity.getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(activity.getComponentName()));
+        searchView.setOnQueryTextListener(this);
+        searchView.setIconifiedByDefault(false);
+
+        {
+            String[] args = new String[10];
+            args[0] = "hello";
+            args[1] = "world";
+            Cursor cursor = suggestionProvider.query(null, null, null, args, null);
+            SearchCultureItemAdapter adapter = new SearchCultureItemAdapter(activity.getBaseContext(), cursor, null);
+            searchView.setSuggestionsAdapter(adapter);
+        }
+
         // TODO Add your menu entries here
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -82,8 +109,7 @@ public class SearchFragment extends Fragment {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_search) {
-            //popupWindwoShow();
-            activity.onSearchRequested();
+            item.expandActionView();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -114,6 +140,18 @@ public class SearchFragment extends Fragment {
             item = new CultureItem(cultureArray.get(i));
             searchItemList.add(item);
         }
+    }
+
+    // 키보드 검색 아이콘 버튼을 눌렀을때
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return true;
+    }
+
+    // Search Text내용이 변경되었을 때
+    @Override
+    public boolean onQueryTextChange(String s) {
+        return true;
     }
 }
 
@@ -160,5 +198,35 @@ class SearchListAdapter extends BaseAdapter {
     @Override
     public int getItemViewType(int position) {
         return 1;
+    }
+}
+
+
+// Action Bar의 Search검색에 사용할 Adapter
+class SearchCultureItemAdapter extends CursorAdapter {
+
+    private ArrayList<String> items;
+
+    private TextView text;
+
+    public SearchCultureItemAdapter(Context context, Cursor cursor, ArrayList<String> items) {
+        super(context, cursor, false);
+        this.items = items;
+    }
+
+    @Override
+    public void bindView(View view, Context context, Cursor cursor) {
+        /*
+        text.setText(cursor.getString(cursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1))); // Example column index
+        */
+        //cursor.get
+    }
+
+    @Override
+    public View newView(Context context, Cursor cursor, ViewGroup parent) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.dashboard_listitem_layout, parent, false);
+        text = (TextView) view.findViewById(R.id.textView_title);
+        return view;
     }
 }

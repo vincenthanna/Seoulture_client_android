@@ -5,9 +5,11 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.SearchRecentSuggestions;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -17,7 +19,7 @@ import android.widget.SearchView;
 import SlidingTabs.SlidingTabLayout;
 import powerwaveinteractive.com.tabsswipe.adapter.TabsPagerAdapter;
 
-public class MainActivity extends FragmentActivity implements ActionBar.TabListener{
+public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
     public static TestDataStorage testDataStorage;
 
@@ -41,6 +43,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         // SlidingTabLayout 설정
         mSlidingTabLayout = (SlidingTabLayout)findViewById(R.id.sliding_tabs);
         mSlidingTabLayout.setViewPager(viewPager);
+
+        Intent intent  = getIntent();
+
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
+                    MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE);
+            suggestions.saveRecentQuery(query, null);
+        }
     }
 
 
@@ -48,14 +59,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-
-
-        // Get the SearchView and set the searchable configuration
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_settings).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setIconifiedByDefault(false);
-
         return true;
     }
 
@@ -66,7 +69,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            onSearchRequested();
             return true;
         }
         return super.onOptionsItemSelected(item);

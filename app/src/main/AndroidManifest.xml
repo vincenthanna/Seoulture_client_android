@@ -31,6 +31,9 @@
             android:label="@string/title_activity_review" >
         </activity>
         <uses-permission android:name="android.permission.INTERNET"/>
+
+        <provider android:name=".MySuggestionProvider"
+            android:authorities="powerwaveinteractive.com.seoulture.MySuggestionProvider" />
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
