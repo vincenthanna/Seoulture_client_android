@@ -1,6 +1,7 @@
 package powerwaveinteractive.com.seoulture;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -94,7 +95,8 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
             args[0] = "hello";
             args[1] = "world";
             Cursor cursor = suggestionProvider.query(null, null, null, args, null);
-            SearchCultureItemAdapter adapter = new SearchCultureItemAdapter(activity.getBaseContext(), cursor, null);
+            SearchCultureItemAdapter adapter = new SearchCultureItemAdapter(activity.getBaseContext(), cursor);
+            adapter.activity = activity;
             searchView.setSuggestionsAdapter(adapter);
         }
 
@@ -205,28 +207,24 @@ class SearchListAdapter extends BaseAdapter {
 // Action Bar의 Search검색에 사용할 Adapter
 class SearchCultureItemAdapter extends CursorAdapter {
 
-    private ArrayList<String> items;
+    //private ArrayList<String> items;
 
-    private TextView text;
+    public Activity activity;
 
-    public SearchCultureItemAdapter(Context context, Cursor cursor, ArrayList<String> items) {
+    public SearchCultureItemAdapter(Context context, Cursor cursor) {
         super(context, cursor, false);
-        this.items = items;
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        /*
-        text.setText(cursor.getString(cursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1))); // Example column index
-        */
-        //cursor.get
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.dashboard_listitem_layout, parent, false);
-        text = (TextView) view.findViewById(R.id.textView_title);
-        return view;
+        int id = cursor.getInt(cursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1));
+        DashboardItemLayout layout = new DashboardItemLayout(context);
+        layout.setCultureItem(MainActivity.testDataStorage.getCultureItemById(id));
+        return layout;
     }
 }

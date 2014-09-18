@@ -55,7 +55,8 @@ public class MySuggestionProvider extends SearchRecentSuggestionsProvider {
 
             for (int i = 0; i < MainActivity.testDataStorage._cultures.size(); i++) {
                 //cursor.addRow(createRow(i, query, query, query));
-                rowObjs = createRow(i, MainActivity.testDataStorage._cultures.get(i));
+                Integer id = new Integer(MainActivity.testDataStorage._cultures.get(i).getId());
+                rowObjs = createRow(i,id);
                 cursor.addRow(rowObjs);
             }
 
@@ -92,8 +93,8 @@ public class MySuggestionProvider extends SearchRecentSuggestionsProvider {
     }
     */
 
-    private Object[] createRow(Integer id, CultureItem item)
+    private Object[] createRow(Integer id, Integer cultureItemId)
     {
-        return new Object[] {id, new CultureItem(item)};
+        return new Object[] {id, cultureItemId};
     }
 }
