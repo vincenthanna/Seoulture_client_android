@@ -33,6 +33,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     FragmentActivity activity;
     //SearchRecentSuggestions _searchSuggestion;
     MySuggestionProvider suggestionProvider;
+    SearchCultureItemAdapter _searchSuggestionAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,9 +96,9 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
             args[0] = "hello";
             args[1] = "world";
             Cursor cursor = suggestionProvider.query(null, null, null, args, null);
-            SearchCultureItemAdapter adapter = new SearchCultureItemAdapter(activity.getBaseContext(), cursor);
-            adapter.activity = activity;
-            searchView.setSuggestionsAdapter(adapter);
+            _searchSuggestionAdapter = new SearchCultureItemAdapter(activity.getBaseContext(), cursor);
+            _searchSuggestionAdapter.activity = activity;
+            searchView.setSuggestionsAdapter(_searchSuggestionAdapter);
         }
 
         // TODO Add your menu entries here
@@ -153,6 +154,16 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     // Search Text내용이 변경되었을 때
     @Override
     public boolean onQueryTextChange(String s) {
+
+        {
+            String[] args = new String[10];
+            args[0] = s;
+            Cursor cursor = suggestionProvider.query(null, null, null, args, null);
+            //_searchSuggestionAdapter = new SearchCultureItemAdapter(activity.getBaseContext(), cursor);
+            _searchSuggestionAdapter.swapCursor(cursor);
+
+        }
+
         return true;
     }
 }

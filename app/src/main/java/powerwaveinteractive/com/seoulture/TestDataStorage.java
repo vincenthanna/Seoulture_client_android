@@ -143,6 +143,65 @@ public class TestDataStorage {
             bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_09);item.bitmaps.add(bImg);
             bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_10);item.bitmaps.add(bImg);
             _cultures.add(item);
+
+
+            item = new CultureItem(id++, "2014 인천 문화의 밤", "서울의 이색 명소체험과 음악, 캠핑 등 다양한 문화 프로그램이 함께 어우러진 서울의 대표적인 여름축제, ‘2014 서울 문화의 밤’이 8월 29일(금)에서 20일(토)까지 2일간, 서울광장 및 청계광장, 시민청 등에서 펼쳐진다.\n" +
+                    " \n" +
+                    "서울의 중심 지역에서 서울의 역사와 문화, 예술을 향유할 수 있는 축제인 ‘2014년 서울 문화의 밤’은, 시민과 국내외 관광객들이 주체가 되고 함께 어우러져, 서울의 숨은 공간에서 다양한 프로그램을 즐기고 서울의 이야기를 나누는 축제이다.\n" +
+                    " \n" +
+                    "올해 축제에서는 서울을 대표하는 다양한 건축 및 시설을 탐방하는 ‘오픈 하우스 서울’, 서울광장 등 서울의 중심에서 개최되는 다양한 장르의 시민 참여형 음악 공연인 ‘서울 뮤직 페스티벌’, 서울광장에서 캠핑을 즐기고 명사와 문화 데이트를 즐기는 이색적인 문화예술 체험 프로그램인 ‘문화상상 프로젝트’ 등 다양한 프로그램이 진행된다.\n" +
+                    " \n" +
+                    "◦ 행사명 : 2014 서울문화의 밤\n" +
+                    "◦ 일 시 : 2014. 8. 29(금) ~ 30(토), 2일간\n" +
+                    "◦ 장 소 : 서울광장, 청계광장, 시민청 및 해당 프로그램 진행 지역\n" +
+                    "◦ 주 최 : 서울특별시\n" +
+                    "◦ 행사구성(세부 프로그램은 행사 홈페이지 참조)\n" +
+                    "- 오픈 하우스 서울 : 서울을 대표하는 다양한 건축 및 시설 탐방\n" +
+                    "- 서울 뮤직 페스티벌 : 서울 중심부(서울광장 등)에서 개최되는 다양한 장르의 시민 참여형 음악 공연\n" +
+                    "- 문화상상 프로젝트, 상상 플러스 : 서울광장 캠핑, 명사초청 문화데이트 등 이색적인 문화예술 체험 프로그램\n" +
+                    "◦ 홈페이지 : www.seoulopenweek.com\n" +
+                    "◦ 문 의 : 02.6939.7890~3");
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_00);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_01);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_02);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_03);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_04);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_05);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_06);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_07);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_08);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_09);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_10);item.bitmaps.add(bImg);
+            _cultures.add(item);
+
+            item = new CultureItem(id++, "2014 부산 문화의 밤", "서울의 이색 명소체험과 음악, 캠핑 등 다양한 문화 프로그램이 함께 어우러진 서울의 대표적인 여름축제, ‘2014 서울 문화의 밤’이 8월 29일(금)에서 20일(토)까지 2일간, 서울광장 및 청계광장, 시민청 등에서 펼쳐진다.\n" +
+                    " \n" +
+                    "서울의 중심 지역에서 서울의 역사와 문화, 예술을 향유할 수 있는 축제인 ‘2014년 서울 문화의 밤’은, 시민과 국내외 관광객들이 주체가 되고 함께 어우러져, 서울의 숨은 공간에서 다양한 프로그램을 즐기고 서울의 이야기를 나누는 축제이다.\n" +
+                    " \n" +
+                    "올해 축제에서는 서울을 대표하는 다양한 건축 및 시설을 탐방하는 ‘오픈 하우스 서울’, 서울광장 등 서울의 중심에서 개최되는 다양한 장르의 시민 참여형 음악 공연인 ‘서울 뮤직 페스티벌’, 서울광장에서 캠핑을 즐기고 명사와 문화 데이트를 즐기는 이색적인 문화예술 체험 프로그램인 ‘문화상상 프로젝트’ 등 다양한 프로그램이 진행된다.\n" +
+                    " \n" +
+                    "◦ 행사명 : 2014 서울문화의 밤\n" +
+                    "◦ 일 시 : 2014. 8. 29(금) ~ 30(토), 2일간\n" +
+                    "◦ 장 소 : 서울광장, 청계광장, 시민청 및 해당 프로그램 진행 지역\n" +
+                    "◦ 주 최 : 서울특별시\n" +
+                    "◦ 행사구성(세부 프로그램은 행사 홈페이지 참조)\n" +
+                    "- 오픈 하우스 서울 : 서울을 대표하는 다양한 건축 및 시설 탐방\n" +
+                    "- 서울 뮤직 페스티벌 : 서울 중심부(서울광장 등)에서 개최되는 다양한 장르의 시민 참여형 음악 공연\n" +
+                    "- 문화상상 프로젝트, 상상 플러스 : 서울광장 캠핑, 명사초청 문화데이트 등 이색적인 문화예술 체험 프로그램\n" +
+                    "◦ 홈페이지 : www.seoulopenweek.com\n" +
+                    "◦ 문 의 : 02.6939.7890~3");
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_00);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_01);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_02);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_03);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_04);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_05);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_06);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_07);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_08);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_09);item.bitmaps.add(bImg);
+            bImg = BitmapFactory.decodeResource(activity.getResources(),R.drawable.img4_10);item.bitmaps.add(bImg);
+            _cultures.add(item);
         }
 
         {
@@ -179,6 +238,23 @@ public class TestDataStorage {
             item = new ReviewItem(id++, 3,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 2.0);_reviews.add(item);
             item = new ReviewItem(id++, 3,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 2.0);_reviews.add(item);
             item = new ReviewItem(id++, 3,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 2.0);_reviews.add(item);
+
+            item = new ReviewItem(id++, 4,"정우성","주차하느라 시간이 오래 걸렸네요.", "완전 끝내줍니다.\n잘봤어요!\n다음에는 주차공간도 신경써주세요.", 3.0);_reviews.add(item);
+            item = new ReviewItem(id++, 4,"이민기","홍보대사 이민기입니다.", "Fantastic!", 3.0);_reviews.add(item);
+            item = new ReviewItem(id++, 4,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 3.0);_reviews.add(item);
+            item = new ReviewItem(id++, 4,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 2.0);_reviews.add(item);
+            item = new ReviewItem(id++, 4,"이민기","홍보대사 이민기입니다.", "Fantastic!", 3.0);_reviews.add(item);
+            item = new ReviewItem(id++, 4,"이민기","홍보대사 이민기입니다.", "Fantastic!", 3.0);_reviews.add(item);
+            item = new ReviewItem(id++, 4,"이민기","홍보대사 이민기입니다.", "Fantastic!", 3.0);_reviews.add(item);
+            item = new ReviewItem(id++, 4,"이효리","허 참...", "이게 뭐시여.", 1.0);_reviews.add(item);
+
+
+            item = new ReviewItem(id++, 5,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 4.0);_reviews.add(item);
+            item = new ReviewItem(id++, 5,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 5.0);_reviews.add(item);
+            item = new ReviewItem(id++, 5,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 2.0);_reviews.add(item);
+            item = new ReviewItem(id++, 5,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 1.0);_reviews.add(item);
+            item = new ReviewItem(id++, 5,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 3.0);_reviews.add(item);
+            item = new ReviewItem(id++, 5,"이효리","홍보대사 이효리입니다.", "제주도에서 오느라 늦었네요.\n좋은구경 하고 가세요~", 3.0);_reviews.add(item);
         }
     }
 }

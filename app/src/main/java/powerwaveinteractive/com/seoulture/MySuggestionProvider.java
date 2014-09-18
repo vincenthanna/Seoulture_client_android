@@ -53,11 +53,15 @@ public class MySuggestionProvider extends SearchRecentSuggestionsProvider {
 
             Object[] rowObjs;
 
+            int id = 0;
             for (int i = 0; i < MainActivity.testDataStorage._cultures.size(); i++) {
                 //cursor.addRow(createRow(i, query, query, query));
-                Integer id = new Integer(MainActivity.testDataStorage._cultures.get(i).getId());
-                rowObjs = createRow(i,id);
-                cursor.addRow(rowObjs);
+                CultureItem item = MainActivity.testDataStorage._cultures.get(i);
+                if (item.title.contains(query)) {
+                    Integer cultureItemId = new Integer(MainActivity.testDataStorage._cultures.get(i).getId());
+                    rowObjs = createRow(id++, cultureItemId);
+                    cursor.addRow(rowObjs);
+                }
             }
 
         } catch (Exception e) {
