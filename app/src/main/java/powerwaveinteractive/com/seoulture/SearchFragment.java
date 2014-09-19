@@ -232,10 +232,9 @@ class SearchCultureItemAdapter extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         int id = cursor.getInt(cursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1));
-        DashboardItemLayout layout = new DashboardItemLayout(context);
-        layout.setCultureItem(MainActivity.testDataStorage.getCultureItemById(id));
+        CultureItem item = MainActivity.testDataStorage.getCultureItemById(id);
+        SuggestionItemLayout layout = new SuggestionItemLayout(context, item);
         return layout;
     }
 }

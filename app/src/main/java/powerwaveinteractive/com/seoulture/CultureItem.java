@@ -38,4 +38,5 @@ public class CultureItem implements Serializable {
     public int getId() {
         return id;
     }
+    public String getTitle() {return title;}
 }
