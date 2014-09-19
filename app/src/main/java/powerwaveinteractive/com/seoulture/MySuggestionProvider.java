@@ -2,36 +2,39 @@ package powerwaveinteractive.com.seoulture;
 
 import android.app.SearchManager;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.SearchRecentSuggestionsProvider;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
-import android.os.CancellationSignal;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 /**
  * Created by vincenthanna on 9/18/14.
  */
 public class MySuggestionProvider extends SearchRecentSuggestionsProvider {
+
+    SearchSuggestionDbHelper _dbHelper = null;
+    Context _context;
+
     static final String TAG = MySuggestionProvider.class.getSimpleName();
     public static final String AUTHORITY = MySuggestionProvider.class
             .getName();
     public static final int MODE = DATABASE_MODE_QUERIES | DATABASE_MODE_2LINES;
-    /*
-    private static final String[] COLUMNS = {
-            "_id", // must include this column
-            SearchManager.SUGGEST_COLUMN_TEXT_1,
-            SearchManager.SUGGEST_COLUMN_TEXT_2,
-            SearchManager.SUGGEST_COLUMN_INTENT_DATA,
-            SearchManager.SUGGEST_COLUMN_INTENT_ACTION,
-            SearchManager.SUGGEST_COLUMN_SHORTCUT_ID };
-            */
+
     private static final String[] COLUMNS = {
             "_id", // must include this column
             SearchManager.SUGGEST_COLUMN_TEXT_1};
 
     public MySuggestionProvider() {
         setupSuggestions(AUTHORITY, MODE);
+    }
+
+    public void initDb(Context context){
+        _context = context;
+        _dbHelper = new SearchSuggestionDbHelper(_context);
     }
 
     @Override
@@ -53,15 +56,13 @@ public class MySuggestionProvider extends SearchRecentSuggestionsProvider {
 
             Object[] rowObjs;
 
+
+            ArrayList<String> strs = _dbHelper.getSuggestionString(query);
+
             int id = 0;
-            for (int i = 0; i < MainActivity.testDataStorage._cultures.size(); i++) {
-                //cursor.addRow(createRow(i, query, query, query));
-                CultureItem item = MainActivity.testDataStorage._cultures.get(i);
-                if (item.title.contains(query)) {
-                    Integer cultureItemId = new Integer(MainActivity.testDataStorage._cultures.get(i).getId());
-                    rowObjs = createRow(id++, cultureItemId);
+            for (int i = 0; i < strs.size(); i++) {
+                    rowObjs = createRow(id++, strs.get(i));
                     cursor.addRow(rowObjs);
-                }
             }
 
         } catch (Exception e) {
@@ -97,8 +98,13 @@ public class MySuggestionProvider extends SearchRecentSuggestionsProvider {
     }
     */
 
-    private Object[] createRow(Integer id, Integer cultureItemId)
+    private Object[] createRow(Integer id, String suggestionStr)
     {
-        return new Object[] {id, cultureItemId};
+        return new Object[] {id, suggestionStr};
+    }
+
+    public void addSuggestionStr(String str)
+    {
+        _dbHelper.addSuggestionString(str);
     }
 }

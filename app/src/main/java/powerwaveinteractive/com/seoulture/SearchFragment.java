@@ -32,7 +32,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     ArrayList<CultureItem> searchItemList;
     FragmentActivity activity;
     //SearchRecentSuggestions _searchSuggestion;
-    MySuggestionProvider suggestionProvider;
+    MySuggestionProvider _suggestionProvider;
     SearchCultureItemAdapter _searchSuggestionAdapter;
 
     @Override
@@ -62,7 +62,8 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 
         activity = this.getActivity();
 
-        suggestionProvider = new MySuggestionProvider();
+        _suggestionProvider = new MySuggestionProvider();
+        _suggestionProvider.initDb(this.activity.getBaseContext());
 
         return rootView;
     }
@@ -95,7 +96,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
             String[] args = new String[10];
             args[0] = "hello";
             args[1] = "world";
-            Cursor cursor = suggestionProvider.query(null, null, null, args, null);
+            Cursor cursor = _suggestionProvider.query(null, null, null, args, null);
             _searchSuggestionAdapter = new SearchCultureItemAdapter(activity.getBaseContext(), cursor);
             _searchSuggestionAdapter.activity = activity;
             searchView.setSuggestionsAdapter(_searchSuggestionAdapter);
@@ -148,6 +149,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     // 키보드 검색 아이콘 버튼을 눌렀을때
     @Override
     public boolean onQueryTextSubmit(String s) {
+        _suggestionProvider.addSuggestionStr(s);
         return true;
     }
 
@@ -158,7 +160,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         {
             String[] args = new String[10];
             args[0] = s;
-            Cursor cursor = suggestionProvider.query(null, null, null, args, null);
+            Cursor cursor = _suggestionProvider.query(null, null, null, args, null);
             //_searchSuggestionAdapter = new SearchCultureItemAdapter(activity.getBaseContext(), cursor);
             _searchSuggestionAdapter.swapCursor(cursor);
 
@@ -218,8 +220,6 @@ class SearchListAdapter extends BaseAdapter {
 // Action Bar의 Search검색에 사용할 Adapter
 class SearchCultureItemAdapter extends CursorAdapter {
 
-    //private ArrayList<String> items;
-
     public Activity activity;
 
     public SearchCultureItemAdapter(Context context, Cursor cursor) {
@@ -232,9 +232,13 @@ class SearchCultureItemAdapter extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
+        /*
         int id = cursor.getInt(cursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1));
         CultureItem item = MainActivity.testDataStorage.getCultureItemById(id);
         SuggestionItemLayout layout = new SuggestionItemLayout(context, item);
+        */
+        String str = cursor.getString(cursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1));
+        SuggestionItemLayout layout = new SuggestionItemLayout(context, str);
         return layout;
     }
 }
