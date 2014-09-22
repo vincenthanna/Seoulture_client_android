@@ -12,6 +12,8 @@ import android.database.sqlite.*;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 
+import junit.framework.Assert;
+
 import java.util.ArrayList;
 
 import powerwaveinteractive.com.seoulture.SearchSettingDialog;
@@ -54,11 +56,23 @@ public class SearchSuggestionDbHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = getWritableDatabase();
         if (str.length() > 0) {
-            ContentValues values = new ContentValues();
-            values.put(SearchStrColumns.COLUMN_NAME_SEARCH_STR, str);
-            long rowId = db.insert(SearchStrColumns.TABLE_NAME, null, values);
-            if (rowId == 0 /*number of rows affected*/) {
-                // 실패한경우
+            // 동일한 것이 없을 경우에만 추가한다.
+            String queryStr = "select * from " + SearchStrColumns.TABLE_NAME +
+                    " where " + SearchStrColumns.COLUMN_NAME_SEARCH_STR + " = " + "'" + str + "'";
+            System.out.println("QueryStr=" + queryStr);
+            Cursor c = db.rawQuery(queryStr, null);
+
+            if (c.getCount() == 0) {
+                ContentValues values = new ContentValues();
+                values.put(SearchStrColumns.COLUMN_NAME_SEARCH_STR, str);
+                long rowId = db.insert(SearchStrColumns.TABLE_NAME, null, values);
+                if (rowId == 0 /*number of rows affected*/) {
+                    Assert.assertEquals(rowId,0);
+                }
+            }
+
+            if (c != null) {
+                c.close();
             }
         }
         db.close();
@@ -70,7 +84,7 @@ public class SearchSuggestionDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery("select * from " + SearchStrColumns.TABLE_NAME +
                 " where " + SearchStrColumns.COLUMN_NAME_SEARCH_STR + " LIKE " +
-                "'%'", null);
+                "'%" + strSearch + "%'", null);
         if (c != null) {
             if (c.moveToFirst()) {
                 do {

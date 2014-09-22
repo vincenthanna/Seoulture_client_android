@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import java.lang.reflect.Array;
 import java.security.Key;
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -44,6 +45,23 @@ public class TestDataStorage {
             }
         }
         return reviewItems;
+    }
+
+    public ArrayList<CultureItem> getCultureItems(String searchTitleStr)
+    {
+        ArrayList<CultureItem> arrayList = new ArrayList<CultureItem>();
+        for (int i = 0; i < _cultures.size(); i++) {
+            CultureItem item = _cultures.get(i);
+            if (searchTitleStr.length() > 0) {
+                if (item.title.contains(searchTitleStr)) {
+                    arrayList.add(item);
+                }
+            }
+            else {
+                arrayList.add(item);
+            }
+        }
+        return arrayList;
     }
 
     public void buildTestData()

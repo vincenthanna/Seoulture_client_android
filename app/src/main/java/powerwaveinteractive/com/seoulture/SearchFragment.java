@@ -12,12 +12,7 @@ import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.*;
 
 import java.util.ArrayList;
@@ -28,7 +23,7 @@ import java.util.ArrayList;
 public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private ListView lv;
-    private ListAdapter lvAdapter;
+    private SearchListAdapter _searchListAdapter;
     ArrayList<CultureItem> searchItemList;
     FragmentActivity activity;
     //SearchRecentSuggestions _searchSuggestion;
@@ -55,10 +50,10 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 
         lv.setOnItemClickListener(mItemClickListener);
 
-        lvAdapter = new SearchListAdapter(this.getActivity(),
+        _searchListAdapter = new SearchListAdapter(this.getActivity(),
                 R.layout.dashboard_listitem_layout,
                 searchItemList);
-        lv.setAdapter(lvAdapter);
+        lv.setAdapter(_searchListAdapter);
 
         activity = this.getActivity();
 
@@ -87,7 +82,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) activity.getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        final SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(activity.getComponentName()));
         searchView.setOnQueryTextListener(this);
         searchView.setIconifiedByDefault(false);
@@ -100,6 +95,25 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
             _searchSuggestionAdapter = new SearchCultureItemAdapter(activity.getBaseContext(), cursor);
             _searchSuggestionAdapter.activity = activity;
             searchView.setSuggestionsAdapter(_searchSuggestionAdapter);
+            searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
+                @Override
+                public boolean onSuggestionSelect(int i) {
+                    return false;
+                }
+
+                @Override
+                 public boolean onSuggestionClick(int i) {
+                    // searchView를 선택한 텍스트로 변경
+                    Cursor cursor = _searchSuggestionAdapter.getCursor();
+                    cursor.moveToPosition(i);
+                    String str = cursor.getString(cursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1));
+                    searchView.setQuery(str, false);
+
+                    searchListItem(str);
+
+                    return false;
+                }
+            });
         }
 
         // TODO Add your menu entries here
@@ -135,41 +149,53 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         d.show();
     }
 
-
-    void doSearch()
+    //TODO:
+    void searchListItem(String str)
     {
-        CultureItem item;
-        ArrayList<CultureItem> cultureArray = MainActivity.testDataStorage._cultures;
-        for (int i = 0; i < cultureArray.size(); i++) {
-            item = new CultureItem(cultureArray.get(i));
-            searchItemList.add(item);
-        }
+        ArrayList<CultureItem> list = MainActivity.testDataStorage.getCultureItems(str);
+        _searchListAdapter.setSource(list);
+        _searchListAdapter.notifyDataSetChanged();
     }
+
+    ////////////////////////////////////////////////////////////////////
+    /// SearchView.OnQueryTextListener override functions
 
     // 키보드 검색 아이콘 버튼을 눌렀을때
     @Override
     public boolean onQueryTextSubmit(String s) {
         _suggestionProvider.addSuggestionStr(s);
+
+        // 검색목록에 저장한다.
+        {
+            String[] args = new String[10];
+            args[0] = s;
+            Cursor cursor = _suggestionProvider.query(null, null, null, args, null);
+            _searchSuggestionAdapter.swapCursor(cursor);
+            _searchSuggestionAdapter.notifyDataSetInvalidated();
+
+        }
+        searchListItem(s);
         return true;
     }
 
     // Search Text내용이 변경되었을 때
     @Override
     public boolean onQueryTextChange(String s) {
-
         {
             String[] args = new String[10];
             args[0] = s;
             Cursor cursor = _suggestionProvider.query(null, null, null, args, null);
-            //_searchSuggestionAdapter = new SearchCultureItemAdapter(activity.getBaseContext(), cursor);
             _searchSuggestionAdapter.swapCursor(cursor);
-
         }
-
+        if (s.length() == 0) {
+            searchListItem("");
+        }
         return true;
     }
+    ////////////////////////////////////////////////////////////////////
 }
 
+///////////////////////////////////////////////////////////////////////////
 // 어댑터 클래스
 class SearchListAdapter extends BaseAdapter {
     LayoutInflater inflater;
@@ -178,6 +204,10 @@ class SearchListAdapter extends BaseAdapter {
     public SearchListAdapter(Context context, int layout, ArrayList<CultureItem> src) {
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.src = src;
+    }
+
+    public void setSource(ArrayList<CultureItem> newSrc) {
+        src = newSrc;
     }
 
     public int getCount() {
@@ -201,7 +231,7 @@ class SearchListAdapter extends BaseAdapter {
             convertView = new DashboardItemLayout(parent.getContext());
         }
         layout = (DashboardItemLayout)convertView;
-        layout.setCultureItem(MainActivity.testDataStorage._cultures.get(position));
+        layout.setCultureItem(src.get(position));
         return convertView;
     }
 
@@ -212,11 +242,11 @@ class SearchListAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        return 1;
+        return 0;
     }
 }
 
-
+///////////////////////////////////////////////////////////////////////////
 // Action Bar의 Search검색에 사용할 Adapter
 class SearchCultureItemAdapter extends CursorAdapter {
 
@@ -228,6 +258,9 @@ class SearchCultureItemAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+        String str = cursor.getString(cursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1));
+        TextView tv = (TextView)view.findViewById(R.id.tv_title);
+        tv.setText(str);
     }
 
     @Override

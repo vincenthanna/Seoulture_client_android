@@ -87,17 +87,6 @@ public class MySuggestionProvider extends SearchRecentSuggestionsProvider {
         throw new UnsupportedOperationException();
     }
 
-    /*
-    private Object[] createRow(Integer id, String text1, String text2,
-                               String name) {
-        return new Object[] { id, // _id
-                text1, // text1
-                text2, // text2
-                text1, "android.intent.action.SEARCH", // action
-                SearchManager.SUGGEST_NEVER_MAKE_SHORTCUT };
-    }
-    */
-
     private Object[] createRow(Integer id, String suggestionStr)
     {
         return new Object[] {id, suggestionStr};
