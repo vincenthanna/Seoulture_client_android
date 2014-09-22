@@ -141,8 +141,11 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 SearchSettingDialog dlg = (SearchSettingDialog)dialogInterface;
-                System.out.println("SearchSettingDialog closed.");
+
                 // OK가 눌러졌을 때에만 검색필터를 갱신하고 ListView를 refresh해야 한다.
+                if (dlg.submitted()) {
+                    // 검색조건을 변경한다.
+                }
             }
         });
 

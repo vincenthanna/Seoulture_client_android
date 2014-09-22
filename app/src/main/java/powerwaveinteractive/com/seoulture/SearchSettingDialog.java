@@ -7,6 +7,11 @@ import android.content.Context;
  * Created by vincenthanna on 9/17/14.
  */
 public class SearchSettingDialog extends Dialog {
+    public boolean _submit = false;
+
+    public boolean submitted() {
+        return _submit;
+    }
 
     public SearchSettingDialog(Context context) {
         super(context);
