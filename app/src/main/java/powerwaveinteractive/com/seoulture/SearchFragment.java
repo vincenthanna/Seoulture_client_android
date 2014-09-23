@@ -79,7 +79,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 
         inflater.inflate(R.menu.searchfragmentmenu, menu);
 
-
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) activity.getSystemService(Context.SEARCH_SERVICE);
         final SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
@@ -156,6 +155,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     void searchListItem(String str)
     {
         ArrayList<CultureItem> list = MainActivity.testDataStorage.getCultureItems(str);
+        this.searchItemList = list;
         _searchListAdapter.setSource(list);
         _searchListAdapter.notifyDataSetChanged();
     }

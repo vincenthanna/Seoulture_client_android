@@ -29,6 +29,8 @@ public class ReviewActivity extends Activity {
         _rootLayout.addView(_reviewListLayout);
 
         _rootScrollView = (ScrollView)findViewById(R.id.sv_reviews);
+
+        setTitle(_cultureItem.getTitle());
     }
 
     @Override

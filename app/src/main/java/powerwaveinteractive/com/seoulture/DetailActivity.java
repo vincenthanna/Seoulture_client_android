@@ -145,6 +145,8 @@ public class DetailActivity extends FragmentActivity {
 
         updateUI();
 
+        setTitle(_cultureItem.getTitle());
+
     }
 
     public void drawChart(LinearLayout layout) {
