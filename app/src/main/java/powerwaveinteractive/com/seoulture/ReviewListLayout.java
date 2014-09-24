@@ -70,7 +70,7 @@ public class ReviewListLayout extends RelativeLayout {
         _tvRatingTotal = (TextView)findViewById(R.id.tv_ratingTotalNum);
         _llRatingsGraph = (LinearLayout)findViewById(R.id.ratingsGraph);
         _lvReview = (ListView)findViewById(R.id.lv_review);
-        _lvReview.setFocusable(false);
+        _lvReview.setFocusable(false); // ScrollView가 처음 열릴 때 가장 위로 가있도록 한다.
 
         _reviewArray = MainActivity.testDataStorage.getReviews(_cultureItem.getId());
 

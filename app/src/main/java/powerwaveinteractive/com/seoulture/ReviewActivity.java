@@ -51,6 +51,4 @@ public class ReviewActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }
