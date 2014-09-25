@@ -1,10 +1,13 @@
 package powerwaveinteractive.com.seoulture;
 
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.*;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -55,6 +58,7 @@ public class DashboardFragment extends Fragment {
         public void onItemClick(AdapterView<?> parent, View view, int position,
                                 long l_position) {
             Intent intent = new Intent(activity, DetailActivity.class);
+
             int cultureItemId = dashboardItemList.get(position).getCultureItem().id;
             intent.putExtra(DetailActivity.CULTURE_ITEM_ID, cultureItemId);
             startActivity(intent);
