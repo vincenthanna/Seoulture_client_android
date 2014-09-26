@@ -1,5 +1,6 @@
 package powerwaveinteractive.com.seoulture;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +16,13 @@ class ReviewListAdapter extends BaseAdapter {
     LayoutInflater inflater;
     ArrayList<ReviewItem> src;
     boolean _showFull = true;
-    void setShowFull(boolean value) {
-        _showFull = value;
-    }
+    Activity _activity;
 
-    public ReviewListAdapter(Context context, int layout, ArrayList<ReviewItem> src) {
+    public ReviewListAdapter(Context context, int layout, ArrayList<ReviewItem> src, Activity activity, boolean showFull) {
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.src = src;
+        this._activity = activity;
+        _showFull = showFull;
     }
 
     public int getCount() {
@@ -49,13 +50,12 @@ class ReviewListAdapter extends BaseAdapter {
     // 각 항목의 view 생성
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = new ReviewListItemLayout(parent.getContext());
+            convertView = new ReviewListItemLayout(parent.getContext(), _activity, _showFull);
         }
         ReviewListItemLayout layout = (ReviewListItemLayout)convertView;
-        layout.preview = true;
         layout.initUI();
         layout.setReviewItem(src.get(position));
-
+        layout.setActivity(_activity);
 
         if (position == 0) {
             convertView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),

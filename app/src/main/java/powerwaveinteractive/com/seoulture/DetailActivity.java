@@ -93,8 +93,7 @@ public class DetailActivity extends FragmentActivity {
         _rbRatingAvg.setOnClickListener(listener_review);
         mAdapter = new ReviewListAdapter(this,
                 R.layout.dashboard_listitem_layout,
-                _reviewArray);
-        mAdapter.setShowFull(false);
+                _reviewArray, this, false);
         _lvReviews.setAdapter(mAdapter);
         mAdapter.listView = _lvReviews;
 

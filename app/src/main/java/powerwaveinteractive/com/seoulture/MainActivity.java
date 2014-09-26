@@ -15,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import SlidingTabs.SlidingTabLayout;
 import powerwaveinteractive.com.tabsswipe.adapter.TabsPagerAdapter;
@@ -76,7 +77,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        viewPager.setCurrentItem(tab.getPosition());
+        viewPager.setCurrentItem(tab.getPosition(), true);
     }
 
     @Override

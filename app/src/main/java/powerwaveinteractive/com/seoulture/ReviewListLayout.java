@@ -1,5 +1,6 @@
 package powerwaveinteractive.com.seoulture;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -30,39 +31,22 @@ public class ReviewListLayout extends RelativeLayout {
     LinearLayout _llRatingsGraph;
     ListView _lvReview;
     ReviewListAdapter _adapter;
+    Activity _activity;
+    boolean _showFull = true;
 
-    public ReviewListLayout(Context context) {
-        super(context);
-        this._context = context;
-        LayoutInflater li = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        li.inflate(R.layout.review_list_layout, this);
-        initUI();
-    }
 
-    public ReviewListLayout(Context context, CultureItem cultureItem) {
+
+    public ReviewListLayout(Context context, CultureItem cultureItem, Activity activity, boolean showFull) {
         super(context);
         this._context = context;
         this._cultureItem = cultureItem;
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         li.inflate(R.layout.review_list_layout, this);
+        _activity = activity;
+        _showFull = showFull;
         initUI();
     }
 
-    public ReviewListLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        this._context = context;
-        LayoutInflater li = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        li.inflate(R.layout.review_list_layout, this);
-        initUI();
-    }
-
-    public ReviewListLayout(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        this._context = context;
-        LayoutInflater li = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        li.inflate(R.layout.review_list_layout, this);
-        initUI();
-    }
 
     public void initUI() {
         _tvRatingAvg = (TextView)findViewById(R.id.ratingAvgTxt);
@@ -76,7 +60,7 @@ public class ReviewListLayout extends RelativeLayout {
 
         _adapter = new ReviewListAdapter(_context,
                 R.layout.dashboard_listitem_layout,
-                _reviewArray);
+                _reviewArray, _activity, _showFull);
         _lvReview.setAdapter(_adapter);
         _adapter.listView = _lvReview;
 
